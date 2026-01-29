@@ -10,45 +10,53 @@ import { Comment, CreateCommentRequest } from '../models/comment.model';
 export class CommentsService {
   private http = inject(HttpClient);
   private apiUrl = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.comments}`;
-// בתוך comments.service.ts
-public comments = signal<Comment[]>([]);
-public loading = signal<boolean>(false);
+
+  public comments = signal<Comment[]>([]);
+  public loading = signal<boolean>(false);
+  
   // Map של תגובות לפי taskId
   private commentsMap = new Map<number, Comment[]>();
 
+  private normalizeComment(serverComment: any): Comment {
+    return {
+      id: serverComment.id,
+      body: serverComment.body,
+      taskId: serverComment.task_id || serverComment.taskId,
+      userId: serverComment.user_id || serverComment.userId,
+      userName: serverComment.author_name || serverComment.userName || 'משתמש אנונימי',
+      createdAt: serverComment.created_at || serverComment.createdAt
+    };
+  }
+
   loadComments(taskId: number): Observable<Comment[]> {
+    this.loading.set(true);
     const params = new HttpParams().set('taskId', taskId.toString());
     
-    return this.http.get<Comment[]>(this.apiUrl, { params }).pipe(
-      tap(comments => {
-        console.log(`Comments loaded for task ${taskId}:`, comments);
-        this.commentsMap.set(taskId, comments);
+    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
+      map(comments => comments.map(c => this.normalizeComment(c))),
+      tap(normalizedComments => {
+        this.commentsMap.set(taskId, normalizedComments);
+        this.comments.set(normalizedComments);
+        this.loading.set(false);
       }),
       catchError(error => {
         console.error('Error loading comments:', error);
+        this.loading.set(false);
         return throwError(() => error);
       })
     );
   }
 
   createComment(comment: CreateCommentRequest): Observable<Comment> {
-    console.log('Creating comment with data:', comment);
-    
-    return this.http.post<Comment>(this.apiUrl, comment).pipe(
-      tap(newComment => {
-        console.log('Comment created successfully:', newComment);
-        
-        // עדכן רק את התגובות של המשימה הספציפית
+    return this.http.post<any>(this.apiUrl, comment).pipe(
+      map(serverComment => this.normalizeComment(serverComment)),
+      tap(normalizedComment => {
         const taskComments = this.commentsMap.get(comment.taskId) || [];
-        this.commentsMap.set(comment.taskId, [...taskComments, newComment]);
+        this.commentsMap.set(comment.taskId, [...taskComments, normalizedComment]);
+        this.comments.update(comments => [...comments, normalizedComment]);
       }),
       catchError(error => {
         console.error('Error creating comment:', error);
-        console.error('Error details:', {
-          status: error.status,
-          statusText: error.statusText,
-          error: error.error
-        });
         return throwError(() => error);
       })
     );

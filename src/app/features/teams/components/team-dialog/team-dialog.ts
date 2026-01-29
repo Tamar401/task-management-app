@@ -30,8 +30,8 @@ export class TeamDialogComponent {
   loading = signal(false);
 
   teamForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['']  // הסרת nonNullable כדי לאפשר null/undefined
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    description: ['', [Validators.maxLength(500)]]
   });
 
   onSubmit(): void {

@@ -46,10 +46,11 @@ export class TaskDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   taskForm = this.fb.nonNullable.group({
-    title: ['', [Validators.required, Validators.minLength(3)]],
-    description: [''],
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+    description: ['', [Validators.maxLength(500)]],
     status: ['todo' as TaskStatus, Validators.required],
-    priority: ['normal' as TaskPriority, Validators.required]
+    priority: ['normal' as TaskPriority, Validators.required],
+    dueDate: ['']
   });
 
   statusOptions = [
@@ -71,7 +72,8 @@ export class TaskDialogComponent implements OnInit {
         title: this.data.task.title,
         description: this.data.task.description || '',
         status: this.data.task.status,
-        priority: this.data.task.priority
+        priority: this.data.task.priority,
+        dueDate: this.data.task.dueDate || ''
       });
     } else if (this.data.status) {
       this.taskForm.patchValue({ status: this.data.status });

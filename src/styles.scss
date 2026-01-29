@@ -35,6 +35,22 @@ $my-theme: mat.m2-define-light-theme((
   --sidebar-bg: #FAFBFC;
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
 }
 
 * {

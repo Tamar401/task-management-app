@@ -36,8 +36,8 @@ export class ProjectDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   projectForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['']
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    description: ['', [Validators.maxLength(500)]]
   });
 
   onSubmit(): void {
