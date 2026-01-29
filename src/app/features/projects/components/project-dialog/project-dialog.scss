@@ -7,3 +7,24 @@ mat-dialog-content {
   min-width: 400px;
   padding: 20px 24px;
 }
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+  
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background-color: var(--bg-secondary);
+      border-radius: 6px;
+    }
+    
+    .mat-mdc-form-field {
+      font-size: 14px;
+    }
+  }
+}
+
+mat-dialog-content {
+  min-width: 450px;
+  padding: 20px 24px;
+}

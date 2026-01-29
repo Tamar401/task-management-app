@@ -33,10 +33,9 @@ export class ProjectDialogComponent {
 
   loading = signal(false);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  projectForm = this.fb.nonNullable.group({
+  projectForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     description: ['']
   });
@@ -45,20 +44,22 @@ export class ProjectDialogComponent {
     if (this.projectForm.valid) {
       this.loading.set(true);
       
-      const projectData = {
-        ...this.projectForm.getRawValue(),
+      const projectData: any = {
+        name: this.projectForm.value.name!,
         teamId: this.data.teamId
       };
+      
+      if (this.projectForm.value.description && this.projectForm.value.description.trim()) {
+        projectData.description = this.projectForm.value.description.trim();
+      }
       
       this.projectsService.createProject(projectData).subscribe({
         next: () => {
           this.dialogRef.close(true);
         },
-        error: (error) => {
+        error: () => {
           this.loading.set(false);
-          this.snackBar.open('שגיאה ביצירת הפרויקט: ' + (error.error?.message || 'שגיאה לא ידועה'), 'סגור', { 
-            duration: 5000 
-          });
+          this.snackBar.open('שגיאה ביצירת הפרויקט', 'סגור', { duration: 3000 });
         }
       });
     }

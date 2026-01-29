@@ -1,20 +1,20 @@
 .tasks-container {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 24px;
+  background: var(--bg-secondary);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  background: white;
-  padding: 24px 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.5s ease-out;
+  margin-bottom: 24px;
+  background: var(--bg-primary);
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
   
   .header-right {
     display: flex;
@@ -22,46 +22,44 @@
     gap: 12px;
     
     button[mat-icon-button] {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 12px;
-      transition: all 0.3s ease;
+      width: 36px;
+      height: 36px;
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border-radius: 6px;
       
       &:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        background: var(--border-color);
       }
     }
   }
   
   h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-primary);
   }
   
   button[mat-raised-button] {
-    height: 50px;
-    padding: 0 30px;
-    font-size: 16px;
+    height: 36px;
+    padding: 0 20px;
+    font-size: 14px;
     font-weight: 600;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    background: var(--primary-color);
+    box-shadow: none;
+    text-transform: none;
     
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(76, 175, 80, 0.4);
+      background: var(--primary-hover);
     }
     
     mat-icon {
-      margin-left: 8px;
+      margin-left: 6px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
     }
   }
 }
@@ -76,60 +74,62 @@
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 16px;
   flex: 1;
   overflow: hidden;
-  animation: fadeIn 0.6s ease-out;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  background: white;
-  border-radius: 20px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
   min-height: 0;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .column-header {
-  padding: 20px 24px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
   
   h2 {
     margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
   .count {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 6px 14px;
-    border-radius: 20px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: 2px 8px;
+    border-radius: 12px;
     font-weight: 600;
-    font-size: 14px;
-    min-width: 35px;
+    font-size: 12px;
+    min-width: 24px;
     text-align: center;
   }
   
-  &.todo {
-    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  &.todo h2 {
+    color: #6B7280;
   }
   
-  &.in-progress {
-    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+  &.in-progress h2 {
+    color: #F59E0B;
   }
   
-  &.done {
-    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+  &.done h2 {
+    color: #10B981;
   }
 }
 
@@ -137,28 +137,27 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 20px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   min-height: 200px;
-  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  background: var(--bg-secondary);
   
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   &::-webkit-scrollbar-track {
     background: transparent;
-    margin: 8px 0;
   }
   
   &::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 10px;
+    background: #D1D5DB;
+    border-radius: 3px;
     
     &:hover {
-      background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
+      background: #9CA3AF;
     }
   }
 }
@@ -168,63 +167,40 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
-  color: #ccc;
+  padding: 40px 20px;
+  color: var(--text-secondary);
   
   mat-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-    margin-bottom: 12px;
-    opacity: 0.5;
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+    opacity: 0.3;
   }
   
   p {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
   }
 }
 
 .cdk-drag-preview {
   opacity: 0.9;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  transform: rotate(3deg);
-  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
 }
 
 .cdk-drag-placeholder {
-  opacity: 0.3;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  border: 2px dashed #667eea;
+  opacity: 0.4;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  border: 2px dashed var(--border-color);
 }
 
 .cdk-drag-animating {
-  transition: transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .column-content.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }

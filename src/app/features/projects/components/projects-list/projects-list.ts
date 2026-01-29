@@ -7,8 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProjectsService } from '../../../../core/services/projects';
-import { CurrentTeamService } from '../../../../core/services/current-team';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog';
+
 
 @Component({
   selector: 'app-projects-list',
@@ -28,31 +28,23 @@ export class ProjectsListComponent implements OnInit {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
-  private currentTeamService = inject(CurrentTeamService);
 
   teamId = Number(this.route.snapshot.paramMap.get('teamId'));
   
   allProjects = this.projectsService.projects;
   loading = this.projectsService.loading;
-
-  projects = computed(() => {
-    const filtered = this.allProjects().filter(p => p.teamId === this.teamId);
-    return filtered;
-  });
-
-  constructor() {
-  }
+  
+  projects = computed(() => 
+    this.allProjects().filter(p => p.teamId === this.teamId)
+  );
 
   ngOnInit(): void {
-    this.currentTeamService.setCurrentTeam(this.teamId);
     this.loadProjects();
   }
 
   loadProjects(): void {
     this.projectsService.loadProjects().subscribe({
-      next: () => {
-      },
-      error: (error) => {
+      error: () => {
         this.snackBar.open('שגיאה בטעינת הפרויקטים', 'סגור', { duration: 3000 });
       }
     });
@@ -67,6 +59,7 @@ export class ProjectsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.snackBar.open('הפרויקט נוצר בהצלחה!', 'סגור', { duration: 3000 });
+        this.loadProjects();
       }
     });
   }

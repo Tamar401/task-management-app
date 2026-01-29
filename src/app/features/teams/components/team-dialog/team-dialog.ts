@@ -29,20 +29,30 @@ export class TeamDialogComponent {
 
   loading = signal(false);
 
-  teamForm = this.fb.nonNullable.group({
+  teamForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    description: ['']
+    description: ['']  // הסרת nonNullable כדי לאפשר null/undefined
   });
 
   onSubmit(): void {
     if (this.teamForm.valid) {
       this.loading.set(true);
       
-      this.teamsService.createTeam(this.teamForm.getRawValue()).subscribe({
+      // בניית האובייקט רק עם השדות שמולאו
+      const teamData: any = {
+        name: this.teamForm.value.name!
+      };
+      
+      // הוספת description רק אם הוא לא ריק
+      if (this.teamForm.value.description && this.teamForm.value.description.trim()) {
+        teamData.description = this.teamForm.value.description.trim();
+      }
+      
+      this.teamsService.createTeam(teamData).subscribe({
         next: () => {
           this.dialogRef.close(true);
         },
-        error: () => {
+        error: (error) => {
           this.loading.set(false);
           this.snackBar.open('שגיאה ביצירת הצוות', 'סגור', { duration: 3000 });
         }

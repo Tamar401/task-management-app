@@ -1,0 +1,68 @@
+<div class="chat-container">
+  <!-- Header -->
+  <div class="chat-header">
+    <div class="header-content">
+      <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="task-info">
+        <h2>{{ data.taskTitle }}</h2>
+        <span class="comments-count">{{ comments().length }} תגובות</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages List -->
+  <div class="messages-list">
+    @if (loading()) {
+      <div class="loading-container">
+        <mat-icon class="loading-icon">chat_bubble_outline</mat-icon>
+        <p>טוען תגובות...</p>
+      </div>
+    } @else {
+      @if (comments().length === 0) {
+        <div class="empty-state">
+          <mat-icon>chat_bubble_outline</mat-icon>
+          <p>אין תגובות עדיין</p>
+          <span>היה הראשון להגיב!</span>
+        </div>
+      } @else {
+        @for (comment of comments(); track comment.id) {
+          <div class="message-wrapper" [class.own-message]="comment.userId === currentUser()?.id">
+            <div class="message-bubble">
+              <div class="message-header">
+                <span class="author-name">{{ comment.userName || 'משתמש' }}</span>
+                <span class="message-time">{{ comment.createdAt | date: 'HH:mm' }}</span>
+              </div>
+              <div class="message-content">{{ comment.content }}</div>
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input-area">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <textarea
+          matInput
+          formControlName="content"
+          placeholder="הקלד הודעה... (Enter לשליחה)"
+          rows="1"
+          class="message-input"
+          (input)="autoResize($event)">
+        </textarea>
+        <button 
+          mat-icon-button 
+          type="submit" 
+          color="primary"
+          [disabled]="submitting() || commentForm.invalid"
+          class="send-button">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

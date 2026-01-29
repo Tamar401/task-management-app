@@ -13,22 +13,19 @@
         {{ getPriorityLabel(task().priority) }}
       </mat-chip>
     </div>
-
-    <mat-accordion class="comments-accordion">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>comment</mat-icon>
-            <span>תגובות</span>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        
-        <app-comments-section [taskId]="task().id" />
-      </mat-expansion-panel>
-    </mat-accordion>
   </mat-card-content>
   
   <mat-card-actions>
+    <button 
+      mat-icon-button 
+      (click)="openComments($event)" 
+      matTooltip="תגובות"
+      [matBadge]="commentsCount()"
+      [matBadgeHidden]="commentsCount() === 0"
+      matBadgeColor="accent"
+      matBadgeSize="small">
+      <mat-icon>chat_bubble</mat-icon>
+    </button>
     <button mat-icon-button (click)="editTask($event)" matTooltip="ערוך">
       <mat-icon>edit</mat-icon>
     </button>

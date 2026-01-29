@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 
-$my-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+// ערכת צבעים מותאמת לClickUp
+$my-primary: mat.m2-define-palette(mat.$m2-purple-palette, 500);
 $my-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 $my-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
@@ -17,6 +18,25 @@ $my-theme: mat.m2-define-light-theme((
 @include mat.core();
 @include mat.all-component-themes($my-theme);
 
+// צבעים גלובליים בסגנון ClickUp
+:root {
+  --primary-color: #7B68EE;
+  --primary-hover: #6C5CE7;
+  --secondary-color: #49CCF9;
+  --success-color: #49D0B0;
+  --warning-color: #FFB946;
+  --danger-color: #F06A6A;
+  --text-primary: #1F2533;
+  --text-secondary: #6D7175;
+  --border-color: #E2E8F0;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F9FAFB;
+  --bg-tertiary: #F4F5F7;
+  --sidebar-bg: #FAFBFC;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -29,42 +49,105 @@ html, body {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-attachment: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.mat-mdc-form-field {
-  text-align: right !important;
-}
-
-.mat-mdc-select-panel {
-  direction: rtl;
-}
-
+// Scrollbar מעוצב בסגנון ClickUp
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
+  background: #D1D5DB;
+  border-radius: 4px;
   
   &:hover {
-    background: linear-gradient(135deg, #5568d3 0%, #65408b 100%);
+    background: #9CA3AF;
   }
 }
 
+// Material overrides
+.mat-mdc-form-field {
+  font-size: 14px;
+}
+
+.mat-mdc-card {
+  box-shadow: var(--card-shadow) !important;
+  
+  &:hover {
+    box-shadow: var(--card-shadow-hover) !important;
+  }
+}
+
+// Dialogs
+::ng-deep {
+  .mat-mdc-dialog-container {
+    border-radius: 8px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+    
+    .mat-mdc-dialog-surface {
+      border-radius: 8px !important;
+    }
+  }
+  
+  .mat-mdc-dialog-title {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    padding: 24px 24px 16px !important;
+  }
+  
+  .mat-mdc-dialog-content {
+    padding: 0 24px !important;
+    color: var(--text-secondary);
+  }
+  
+  .mat-mdc-dialog-actions {
+    padding: 16px 24px 24px !important;
+    gap: 12px;
+    
+    button[mat-raised-button] {
+      border-radius: 6px;
+      padding: 0 20px;
+      height: 36px;
+      font-weight: 500;
+      text-transform: none;
+      background: var(--primary-color);
+      
+      &:hover:not(:disabled) {
+        background: var(--primary-hover);
+      }
+    }
+    
+    button[mat-button] {
+      border-radius: 6px;
+      padding: 0 20px;
+      height: 36px;
+      font-weight: 500;
+      text-transform: none;
+      color: var(--text-secondary);
+      
+      &:hover {
+        background-color: var(--bg-tertiary);
+      }
+    }
+  }
+}
+
+// אנימציות
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -75,7 +158,7 @@ body {
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-10px);
   }
   to {
     opacity: 1;
@@ -84,64 +167,99 @@ body {
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .slide-in {
-  animation: slideIn 0.5s ease-out;
+  animation: slideIn 0.3s ease-out;
+}
+// עיצוב מיוחד ל-Comments Dialog
+::ng-deep {
+  .comments-dialog {
+    .mat-mdc-dialog-container {
+      padding: 0 !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      
+      .mat-mdc-dialog-surface {
+        border-radius: 16px !important;
+        padding: 0 !important;
+      }
+    }
+  }
 }
 
-::ng-deep {
-  .mat-mdc-dialog-container {
-    border-radius: 20px !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
-    
-    .mat-mdc-dialog-surface {
-      border-radius: 20px !important;
-    }
+// אנימציות גלובליות מגניבות
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+// אפקט hover מגניב לכפתורים
+.mat-mdc-raised-button:not(:disabled) {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
   }
   
-  .mat-mdc-dialog-title {
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding: 24px 24px 16px !important;
+  &:hover::before {
+    width: 300px;
+    height: 300px;
   }
-  
-  .mat-mdc-dialog-content {
-    padding: 24px !important;
+}
+
+// אנימציות לכרטיסים
+.mat-mdc-card {
+  &:hover {
+    animation: pulse 2s infinite;
   }
-  
-  .mat-mdc-dialog-actions {
-    padding: 16px 24px 24px !important;
-    
-    button[mat-raised-button] {
-      border-radius: 10px;
-      padding: 0 24px;
-      height: 44px;
-      font-weight: 600;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      transition: all 0.3s ease;
-      
-      &:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-      }
-    }
-    
-    button[mat-button] {
-      border-radius: 10px;
-      padding: 0 24px;
-      height: 44px;
-      font-weight: 600;
-      color: #666;
-      
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-      }
-    }
-  }
+}
+
+// Loading spinner מעוצב
+.mat-mdc-progress-spinner circle {
+  stroke: url(#gradient) !important;
 }

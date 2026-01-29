@@ -1,15 +1,11 @@
 import { Component, input, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
 import { CommentsService } from '../../../../core/services/comments';
+import { AuthService } from '../../../../core/services/auth';
 
 
 @Component({
@@ -18,13 +14,8 @@ import { CommentsService } from '../../../../core/services/comments';
   imports: [
     ReactiveFormsModule,
     DatePipe,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     MatIconModule,
-    MatListModule,
-    MatDividerModule
+    MatButtonModule
   ],
   templateUrl: './comments-section.html',
   styleUrl: './comments-section.scss'
@@ -32,16 +23,17 @@ import { CommentsService } from '../../../../core/services/comments';
 export class CommentsSectionComponent implements OnInit {
   private fb = inject(FormBuilder);
   private commentsService = inject(CommentsService);
+  private authService = inject(AuthService);
   private snackBar = inject(MatSnackBar);
 
   taskId = input.required<number>();
 
-  comments = this.commentsService.comments;
-  loading = this.commentsService.loading;
+ comments = this.commentsService.comments; // ה-Signal שבו נמצאת רשימת התגובות
+loading = this.commentsService.loading;   // ה-Signal שמציין אם יש טעינה
   submitting = signal(false);
 
-  commentForm = this.fb.nonNullable.group({
-    body: ['', [Validators.required, Validators.minLength(1)]]
+  commentForm = this.fb.group({
+    content: ['', [Validators.required, Validators.minLength(1)]]
   });
 
   ngOnInit(): void {
@@ -50,32 +42,39 @@ export class CommentsSectionComponent implements OnInit {
 
   loadComments(): void {
     this.commentsService.loadComments(this.taskId()).subscribe({
-      error: (error) => {
+      error: () => {
         this.snackBar.open('שגיאה בטעינת התגובות', 'סגור', { duration: 3000 });
       }
     });
   }
 
   onSubmit(): void {
-    if (this.commentForm.valid) {
+    if (this.commentForm.valid && this.commentForm.value.content?.trim()) {
       this.submitting.set(true);
       
       const commentData = {
-        taskId: this.taskId(),
-        body: this.commentForm.value.body!.trim()
+        body: this.commentForm.value.content.trim(),
+        taskId: this.taskId()
       };
 
       this.commentsService.createComment(commentData).subscribe({
         next: () => {
           this.commentForm.reset();
           this.submitting.set(false);
-          this.snackBar.open('התגובה נוספה בהצלחה!', 'סגור', { duration: 2000 });
+          // רענון התגובות
+          this.loadComments();
         },
-        error: (error) => {
+        error: () => {
           this.submitting.set(false);
           this.snackBar.open('שגיאה בהוספת התגובה', 'סגור', { duration: 3000 });
         }
       });
     }
+  }
+
+  autoResize(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 150) + 'px';
   }
 }
