@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TeamsService } from '../../../../core/services/teams';
 import { TeamDialogComponent } from '../team-dialog/team-dialog';
+import { AddMemberDialogComponent } from '../add-member-dialog/add-member-dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -18,7 +20,8 @@ import { TeamDialogComponent } from '../team-dialog/team-dialog';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   templateUrl: './teams-list.html',
   styleUrl: './teams-list.scss'
@@ -52,6 +55,19 @@ export class TeamsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.snackBar.open('הצוות נוצר בהצלחה!', 'סגור', { duration: 3000 });
+      }
+    });
+  }
+
+  openAddMemberDialog(teamId: number, teamName: string): void {
+    const dialogRef = this.dialog.open(AddMemberDialogComponent, {
+      width: '400px',
+      data: { teamId, teamName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.snackBar.open('החבר נוסף בהצלחה!', 'סגור', { duration: 2000 });
       }
     });
   }

@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DatePipe } from '@angular/common';
 import { CommentsService } from '../../../../core/services/comments';
 import { AuthService } from '../../../../core/services/auth';
@@ -30,7 +31,8 @@ interface DialogData {
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ],
   templateUrl: './comments-dialog.html',
   styleUrl: './comments-dialog.scss'
@@ -115,6 +117,24 @@ handleEnterKey(e: Event): void {
     if (messagesList) {
       messagesList.scrollTop = messagesList.scrollHeight;
     }
+  }
+
+  deleteComment(commentId: number): void {
+    if (confirm('האם אתה בטוח שברצונך למחוק את התגובה?')) {
+      this.commentsService.deleteComment(commentId, this.data.taskId).subscribe({
+        next: () => {
+          this.snackBar.open('התגובה נמחקה בהצלחה', 'סגור', { duration: 2000 });
+        },
+        error: (error) => {
+          console.error('Error deleting comment:', error);
+          this.snackBar.open('שגיאה במחיקת התגובה', 'סגור', { duration: 3000 });
+        }
+      });
+    }
+  }
+
+  isCommentOwner(comment: any): boolean {
+    return comment.userId === this.currentUser()?.id;
   }
 
   close(): void {

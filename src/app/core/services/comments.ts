@@ -62,6 +62,28 @@ export class CommentsService {
     );
   }
 
+  deleteComment(commentId: number, taskId?: number): Observable<void> {
+    const url = `${this.apiUrl}/${commentId}`;
+    return this.http.delete<void>(url).pipe(
+      tap(() => {
+        // Remove from comments array
+        this.comments.update(comments => 
+          comments.filter(c => c.id !== commentId)
+        );
+        
+        // Remove from commentsMap if taskId provided
+        if (taskId !== undefined) {
+          const taskComments = this.commentsMap.get(taskId) || [];
+          this.commentsMap.set(taskId, taskComments.filter(c => c.id !== commentId));
+        }
+      }),
+      catchError(error => {
+        console.error('Error deleting comment:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   getCommentsForTask(taskId: number): Comment[] {
     return this.commentsMap.get(taskId) || [];
   }

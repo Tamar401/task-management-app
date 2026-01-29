@@ -12,6 +12,51 @@
     </button>
   </div>
 
+  <!-- Filters -->
+  <div class="filters-container">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>חיפוש משימות</mat-label>
+      <input 
+        matInput 
+        placeholder="חפש לפי שם או תיאור..."
+        [value]="searchText()"
+        (input)="searchText.set($any($event.target).value)"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>סינן לפי עדיפות</mat-label>
+      <mat-select 
+        [value]="filterPriority()"
+        (selectionChange)="filterPriority.set($event.value)">
+        <mat-option value="">כל העדיפויות</mat-option>
+        <mat-option value="low">נמוכה</mat-option>
+        <mat-option value="normal">רגילה</mat-option>
+        <mat-option value="high">גבוהה</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>סינן לפי סטטוס</mat-label>
+      <mat-select 
+        [value]="filterStatus()"
+        (selectionChange)="filterStatus.set($event.value)">
+        <mat-option value="">כל הסטטוסים</mat-option>
+        <mat-option value="todo">לביצוע</mat-option>
+        <mat-option value="in_progress">בביצוע</mat-option>
+        <mat-option value="done">הסתיים</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button 
+      mat-button 
+      (click)="clearFilters()"
+      *ngIf="searchText() || filterPriority() || filterStatus()">
+      <mat-icon>clear_all</mat-icon>
+      אפס סינון
+    </button>
+  </div>
+
   @if (loading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>

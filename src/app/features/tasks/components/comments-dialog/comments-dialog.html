@@ -33,8 +33,17 @@
               <div class="message-header">
                 <span class="author-name">{{ comment.userName || 'משתמש' }}</span>
                 <span class="message-time">{{ comment.createdAt | date: 'HH:mm' }}</span>
+                @if (isCommentOwner(comment)) {
+                  <button 
+                    mat-icon-button 
+                    class="delete-btn"
+                    (click)="deleteComment(comment.id)"
+                    matTooltip="מחק תגובה">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                }
               </div>
-              <div class="message-content">{{ comment.content }}</div>
+              <div class="message-content">{{ comment.body || comment.content }}</div>
             </div>
           </div>
         }

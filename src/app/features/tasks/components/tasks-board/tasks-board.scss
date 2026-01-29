@@ -4,13 +4,14 @@
   flex-direction: column;
   padding: 24px;
   background: var(--bg-secondary);
+  overflow-y: auto;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   background: var(--bg-primary);
   padding: 16px 20px;
   border-radius: 8px;
@@ -57,10 +58,32 @@
     
     mat-icon {
       margin-left: 6px;
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
     }
+  }
+}
+
+// Filter styles
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  
+  .filter-field {
+    min-width: 200px;
+    
+    ::ng-deep .mdc-text-field {
+      width: 100%;
+    }
+  }
+  
+  button[mat-button] {
+    height: 40px;
+    padding: 0 12px;
   }
 }
 

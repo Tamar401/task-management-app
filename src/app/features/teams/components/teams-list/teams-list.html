@@ -14,7 +14,7 @@
   } @else {
     <div class="teams-grid">
       @for (team of teams(); track team.id) {
-        <mat-card class="team-card" (click)="viewProjects(team.id)">
+        <mat-card class="team-card">
           <mat-card-header>
             <mat-card-title>{{ team.name }}</mat-card-title>
             <mat-card-subtitle>{{ team.memberCount }} חברים</mat-card-subtitle>
@@ -25,9 +25,20 @@
           </mat-card-content>
           
           <mat-card-actions>
-            <button mat-button color="primary">
+            <button 
+              mat-button 
+              color="primary"
+              (click)="viewProjects(team.id)"
+              matTooltip="צפה בפרויקטים">
               <mat-icon>arrow_back</mat-icon>
               צפה בפרויקטים
+            </button>
+            <button 
+              mat-icon-button 
+              color="accent"
+              (click)="openAddMemberDialog(team.id, team.name)"
+              matTooltip="הוסף חבר לצוות">
+              <mat-icon>person_add</mat-icon>
             </button>
           </mat-card-actions>
         </mat-card>
