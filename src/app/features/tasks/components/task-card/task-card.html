@@ -1,0 +1,39 @@
+<mat-card class="task-card">
+  <mat-card-header>
+    <mat-card-title>{{ task().title }}</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    @if (task().description) {
+      <p class="description">{{ task().description }}</p>
+    }
+    
+    <div class="task-meta">
+      <mat-chip [color]="getPriorityColor(task().priority)" highlighted>
+        {{ getPriorityLabel(task().priority) }}
+      </mat-chip>
+    </div>
+
+    <mat-accordion class="comments-accordion">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>comment</mat-icon>
+            <span>תגובות</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <app-comments-section [taskId]="task().id" />
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <button mat-icon-button (click)="editTask($event)" matTooltip="ערוך">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteTask($event)" matTooltip="מחק" color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

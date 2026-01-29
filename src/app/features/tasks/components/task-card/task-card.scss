@@ -1,0 +1,131 @@
+.task-card {
+  cursor: move;
+  background: white;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  
+  &:hover {
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    border-color: #667eea;
+    transform: translateY(-4px);
+  }
+  
+  mat-card-header {
+    padding: 16px 16px 8px;
+  }
+  
+  mat-card-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+  }
+  
+  mat-card-content {
+    padding: 0 16px 12px;
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 8px 0;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .task-meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    
+    mat-chip {
+      font-size: 12px;
+      font-weight: 600;
+      height: 28px;
+      border-radius: 14px;
+      
+      &.mat-mdc-chip-highlighted {
+        &[color="accent"] {
+          background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+        
+        &[color="primary"] {
+          background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        }
+        
+        &[color="warn"] {
+          background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        }
+      }
+    }
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    gap: 4px;
+    border-top: 1px solid #f0f0f0;
+    
+    button {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.2);
+      }
+      
+      &[color="warn"]:hover {
+        background-color: rgba(244, 67, 54, 0.1);
+      }
+    }
+  }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.task-card {
+  animation: cardEnter 0.4s ease-out;
+}
+.comments-accordion {
+  margin-top: 16px;
+
+  mat-expansion-panel {
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+
+    mat-expansion-panel-header {
+      background: #f8f9fa;
+      border-radius: 8px;
+
+      mat-panel-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: #667eea;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}

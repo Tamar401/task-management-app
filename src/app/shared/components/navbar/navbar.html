@@ -1,0 +1,29 @@
+@if (isAuthenticated()) {
+  <mat-toolbar color="primary">
+    <span class="logo" routerLink="/teams">📋 ניהול משימות</span>
+    
+    <span class="spacer"></span>
+    
+    <button mat-button routerLink="/teams">
+      <mat-icon>groups</mat-icon>
+      הצוותים שלי
+    </button>
+    
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+      {{ currentUser()?.name }}
+    </button>
+    
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>email</mat-icon>
+        <span>{{ currentUser()?.email }}</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>התנתק</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+}

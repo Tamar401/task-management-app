@@ -1,0 +1,65 @@
+<div class="projects-container">
+  <div class="header">
+    <div class="header-right">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <h1>פרויקטים</h1>
+    </div>
+    <button mat-raised-button color="primary" (click)="openProjectDialog()">
+      <mat-icon>add</mat-icon>
+      צור פרויקט חדש
+    </button>
+  </div>
+
+  <div style="background: yellow; padding: 10px; margin-bottom: 20px; border-radius: 10px;">
+    <strong>Debug Info:</strong><br>
+    Team ID: {{ teamId }} ({{ typeof teamId }})<br>
+    Total Projects: {{ allProjects().length }}<br>
+    Filtered Projects: {{ projects().length }}<br>
+    Loading: {{ loading() }}<br>
+    <br>
+    <strong>All Projects TeamIds:</strong><br>
+    @for (p of allProjects(); track p.id) {
+      <div>{{ p.name }}: teamId={{ p.teamId }} ({{ typeof p.teamId }})</div>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="projects-grid">
+      @for (project of projects(); track project.id) {
+        <mat-card class="project-card" (click)="viewTasks(project.id)">
+          <mat-card-header>
+            <mat-card-title>{{ project.name }}</mat-card-title>
+            <mat-card-subtitle>{{ project.teamName || 'ללא שם צוות' }}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <p>{{ project.description || 'אין תיאור' }}</p>
+            <small style="color: red;">TeamId: {{ project.teamId }}</small>
+          </mat-card-content>
+          
+          <mat-card-actions>
+            <button mat-button color="primary">
+              <mat-icon>arrow_back</mat-icon>
+              צפה במשימות
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      } @empty {
+        <div class="no-projects">
+          <mat-icon>folder</mat-icon>
+          <h2>עדיין אין פרויקטים לצוות זה</h2>
+          <p>התחל על ידי יצירת הפרויקט הראשון</p>
+          <p style="color: red; font-size: 12px;">
+            מחפש פרויקטים עם teamId={{ teamId }}
+          </p>
+        </div>
+      }
+    </div>
+  }
+</div>
