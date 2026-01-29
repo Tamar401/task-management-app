@@ -12,19 +12,6 @@
     </button>
   </div>
 
-  <div style="background: yellow; padding: 10px; margin-bottom: 20px; border-radius: 10px;">
-    <strong>Debug Info:</strong><br>
-    Team ID: {{ teamId }} ({{ typeof teamId }})<br>
-    Total Projects: {{ allProjects().length }}<br>
-    Filtered Projects: {{ projects().length }}<br>
-    Loading: {{ loading() }}<br>
-    <br>
-    <strong>All Projects TeamIds:</strong><br>
-    @for (p of allProjects(); track p.id) {
-      <div>{{ p.name }}: teamId={{ p.teamId }} ({{ typeof p.teamId }})</div>
-    }
-  </div>
-
   @if (loading()) {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>
