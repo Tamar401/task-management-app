@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +15,7 @@ import { ProjectDialogComponent } from '../project-dialog/project-dialog';
   selector: 'app-projects-list',
   standalone: true,
   imports: [
+    CommonModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
@@ -37,6 +39,11 @@ export class ProjectsListComponent implements OnInit {
   projects = computed(() => 
     this.allProjects().filter(p => p.teamId === this.teamId)
   );
+
+  teamName = computed(() => {
+    const firstProject = this.projects()[0];
+    return firstProject?.teamName || 'הצוות שלי';
+  });
 
   ngOnInit(): void {
     this.loadProjects();

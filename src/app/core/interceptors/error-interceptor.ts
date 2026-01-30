@@ -16,7 +16,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       switch (error.status) {
         case 401:
           // Unauthorized - clear auth and redirect to login
-          localStorage.removeItem('token');
+          sessionStorage.removeItem('token');
           router.navigate(['/login']);
           snackBar.open('הסדרה פגה - אנא התחבר שוב', 'סגור', { duration: 3000 });
           break;

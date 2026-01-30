@@ -58,7 +58,7 @@
         <textarea
           matInput
           formControlName="content"
-          placeholder="הקלד הודעה... (Enter לשליחה)"
+          placeholder="הקלד הודעה... "
           rows="1"
           class="message-input"
           (input)="autoResize($event)">
@@ -67,7 +67,7 @@
           mat-icon-button 
           type="submit" 
           color="primary"
-          [disabled]="submitting() || commentForm.invalid"
+          [disabled]="submitting() || !commentForm.get('content')?.value?.trim()"
           class="send-button">
           <mat-icon>send</mat-icon>
         </button>

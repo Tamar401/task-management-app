@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { Comment, CreateCommentRequest } from '../models/comment.model';
+import { CommentServerResponse, ApiResponse } from '../models/server-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,14 @@ export class CommentsService {
   // Map של תגובות לפי taskId
   private commentsMap = new Map<number, Comment[]>();
 
-  private normalizeComment(serverComment: any): Comment {
+  private normalizeComment(serverComment: CommentServerResponse): Comment {
     return {
       id: serverComment.id,
       body: serverComment.body,
-      taskId: serverComment.task_id || serverComment.taskId,
-      userId: serverComment.user_id || serverComment.userId,
-      userName: serverComment.author_name || serverComment.userName || 'משתמש אנונימי',
-      createdAt: serverComment.created_at || serverComment.createdAt
+      taskId: serverComment.task_id,
+      userId: serverComment.user_id,
+      userName: serverComment.author_name || 'משתמש אנונימי',
+      createdAt: serverComment.created_at
     };
   }
 
@@ -32,7 +33,7 @@ export class CommentsService {
     this.loading.set(true);
     const params = new HttpParams().set('taskId', taskId.toString());
     
-    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
+    return this.http.get<CommentServerResponse[]>(this.apiUrl, { params }).pipe(
       map(comments => comments.map(c => this.normalizeComment(c))),
       tap(normalizedComments => {
         this.commentsMap.set(taskId, normalizedComments);
@@ -48,7 +49,7 @@ export class CommentsService {
   }
 
   createComment(comment: CreateCommentRequest): Observable<Comment> {
-    return this.http.post<any>(this.apiUrl, comment).pipe(
+    return this.http.post<CommentServerResponse>(this.apiUrl, comment).pipe(
       map(serverComment => this.normalizeComment(serverComment)),
       tap(normalizedComment => {
         const taskComments = this.commentsMap.get(comment.taskId) || [];

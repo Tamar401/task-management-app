@@ -1,44 +1,71 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>התחברות למערכת</mat-card-title>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>אימייל</mat-label>
-          <input matInput type="email" formControlName="email" placeholder="your@email.com">
+<div class="login-wrapper">
+  <!-- Geometric background elements -->
+  <div class="background-shape shape-1"></div>
+  <div class="background-shape shape-2"></div>
+  <div class="background-shape shape-3"></div>
+
+  <!-- Login card -->
+  <div class="login-card">
+    <div class="card-header">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span class="logo-text">Task Pro</span>
+      </div>
+    </div>
+
+    <div class="card-content">
+      <div class="welcome-section">
+        <h1>ברוך הבא</h1>
+        <p>התחבר לחשבונך כדי להמשיך</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label>אימייל</label>
+          <input 
+            formControlName="email" 
+            type="email" 
+            placeholder="your@email.com"
+            class="form-input">
           @if (loginForm.controls.email.hasError('required')) {
-            <mat-error>אימייל הוא שדה חובה</mat-error>
+            <span class="error-message">אימייל הוא שדה חובה</span>
           }
           @if (loginForm.controls.email.hasError('email')) {
-            <mat-error>אנא הזן אימייל תקין</mat-error>
+            <span class="error-message">אנא הזן אימייל תקין</span>
           }
-        </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>סיסמה</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="סיסמה">
+        <div class="form-group">
+          <label>סיסמה</label>
+          <input 
+            formControlName="password" 
+            type="password" 
+            placeholder="סיסמה"
+            class="form-input">
           @if (loginForm.controls.password.hasError('required')) {
-            <mat-error>סיסמה היא שדה חובה</mat-error>
+            <span class="error-message">סיסמה היא שדה חובה</span>
           }
           @if (loginForm.controls.password.hasError('minlength')) {
-            <mat-error>הסיסמה חייבת להכיל לפחות 6 תווים</mat-error>
+            <span class="error-message">הסיסמה חייבת להכיל לפחות 6 תווים</span>
           }
-        </mat-form-field>
+        </div>
 
-        <button mat-raised-button color="primary" type="submit" 
-                class="full-width" [disabled]="loading() || loginForm.invalid">
-          {{ loading() ? 'מתחבר...' : 'התחבר' }}
+        <button 
+          type="submit" 
+          class="login-button" 
+          [disabled]="loading() || loginForm.invalid">
+          @if (loading()) {
+            <span class="spinner"></span>
+            מתחבר...
+          } @else {
+            התחבר
+          }
         </button>
       </form>
-    </mat-card-content>
 
-    <mat-card-actions>
-      <p class="register-link">
-        עדיין אין לך חשבון? <a routerLink="/register">הירשם כאן</a>
-      </p>
-    </mat-card-actions>
-  </mat-card>
+      <div class="footer-section">
+        <p>עדיין אין לך חשבון? <a routerLink="/register" class="register-link">הירשם כאן</a></p>
+      </div>
+    </div>
+  </div>
 </div>

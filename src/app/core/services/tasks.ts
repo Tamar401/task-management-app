@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { Task, CreateTaskRequest, UpdateTaskRequest } from '../models/task.model';
+import { TaskServerResponse } from '../models/server-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +15,18 @@ export class TasksService {
   tasks = signal<Task[]>([]);
   loading = signal(false);
 
-  private normalizeTask(serverTask: any): Task {
+  private normalizeTask(serverTask: TaskServerResponse): Task {
     return {
       id: serverTask.id,
       title: serverTask.title,
       description: serverTask.description,
       status: serverTask.status,
       priority: serverTask.priority,
-      projectId: serverTask.project_id || serverTask.projectId,
-      assigneeId: serverTask.assigned_to || serverTask.assignedTo,
-      createdBy: serverTask.created_by || serverTask.createdBy,
-      createdAt: serverTask.created_at || serverTask.createdAt,
-      updatedAt: serverTask.updated_at || serverTask.updatedAt
+      projectId: serverTask.project_id,
+      assigneeId: serverTask.assignee_id,
+      createdBy: serverTask.created_by,
+      createdAt: serverTask.created_at,
+      updatedAt: serverTask.updated_at
     };
   }
 
@@ -36,7 +37,7 @@ export class TasksService {
       params = params.set('projectId', projectId.toString());
     }
     
-    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
+    return this.http.get<TaskServerResponse[]>(this.apiUrl, { params }).pipe(
       map(tasks => tasks.map(t => this.normalizeTask(t))),
       tap(tasks => {
         this.tasks.set(tasks);

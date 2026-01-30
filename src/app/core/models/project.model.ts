@@ -5,6 +5,7 @@ export interface Project {
   teamId: number;
   teamName?: string;
   createdAt: string;
+  memberCount?: number;
 }
 
 export interface CreateProjectRequest {

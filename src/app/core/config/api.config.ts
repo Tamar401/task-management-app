@@ -1,5 +1,7 @@
+import { environment } from '../../../environments/environment';
+
 export const API_CONFIG = {
-  baseUrl: 'http://localhost:3000/api',
+  baseUrl: environment.apiUrl,
   endpoints: {
     auth: {
       register: '/auth/register',

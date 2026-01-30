@@ -1,4 +1,4 @@
-import { Component, input, output, inject, signal } from '@angular/core';
+import { Component, input, output, inject, signal, SecurityContext } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,6 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Task } from '../../../../core/models/task.model';
 import { TasksService } from '../../../../core/services/tasks';
 import { CommentsService } from '../../../../core/services/comments';
@@ -31,6 +32,7 @@ export class TaskCardComponent {
   private tasksService = inject(TasksService);
   private commentsService = inject(CommentsService);
   private snackBar = inject(MatSnackBar);
+  private sanitizer = inject(DomSanitizer);
 
   task = input.required<Task>();
   taskDeleted = output<number>();
@@ -66,6 +68,11 @@ export class TaskCardComponent {
       'high': 'גבוהה'
     };
     return labels[priority as keyof typeof labels] || priority;
+  }
+
+  // Sanitize text content to prevent XSS
+  sanitizeText(text: string): string {
+    return this.sanitizer.sanitize(SecurityContext.HTML, text) || text;
   }
 
   openComments(event: Event): void {

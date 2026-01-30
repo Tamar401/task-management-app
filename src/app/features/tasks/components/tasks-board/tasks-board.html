@@ -1,72 +1,27 @@
-<div class="tasks-container">
+<div class="tasks-container" role="main" aria-label="Task management board">
   <div class="header">
     <div class="header-right">
-      <button mat-icon-button (click)="goBack()">
-        <mat-icon>arrow_forward</mat-icon>
+      <button mat-icon-button (click)="goBack()" aria-label="Go back">
+        <mat-icon aria-hidden="true">arrow_forward</mat-icon>
       </button>
       <h1>לוח משימות</h1>
     </div>
-    <button mat-raised-button color="primary" (click)="openTaskDialog()">
-      <mat-icon>add</mat-icon>
+    <button mat-raised-button color="primary" (click)="openTaskDialog()" aria-label="Add new task">
+      <mat-icon aria-hidden="true">add</mat-icon>
       הוסף משימה
     </button>
   </div>
 
-  <!-- Filters -->
-  <div class="filters-container">
-    <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>חיפוש משימות</mat-label>
-      <input 
-        matInput 
-        placeholder="חפש לפי שם או תיאור..."
-        [value]="searchText()"
-        (input)="searchText.set($any($event.target).value)"
-      />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>סינן לפי עדיפות</mat-label>
-      <mat-select 
-        [value]="filterPriority()"
-        (selectionChange)="filterPriority.set($event.value)">
-        <mat-option value="">כל העדיפויות</mat-option>
-        <mat-option value="low">נמוכה</mat-option>
-        <mat-option value="normal">רגילה</mat-option>
-        <mat-option value="high">גבוהה</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>סינן לפי סטטוס</mat-label>
-      <mat-select 
-        [value]="filterStatus()"
-        (selectionChange)="filterStatus.set($event.value)">
-        <mat-option value="">כל הסטטוסים</mat-option>
-        <mat-option value="todo">לביצוע</mat-option>
-        <mat-option value="in_progress">בביצוע</mat-option>
-        <mat-option value="done">הסתיים</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button 
-      mat-button 
-      (click)="clearFilters()"
-      *ngIf="searchText() || filterPriority() || filterStatus()">
-      <mat-icon>clear_all</mat-icon>
-      אפס סינון
-    </button>
-  </div>
-
   @if (loading()) {
-    <div class="loading-spinner">
+    <div class="loading-spinner" role="status" aria-label="Loading tasks">
       <mat-spinner></mat-spinner>
     </div>
   } @else {
-    <div class="board">
+    <div class="board" role="region" aria-label="Task board with columns">
       <div class="column">
         <div class="column-header todo">
           <h2>לביצוע</h2>
-          <span class="count">{{ todoTasks().length }}</span>
+          <span class="count" aria-label="Number of to-do tasks">{{ todoTasks().length }}</span>
         </div>
         <div 
           class="column-content"
@@ -74,13 +29,17 @@
           [cdkDropListData]="todoTasks()"
           (cdkDropListDropped)="onDrop($event, 'todo')"
           [cdkDropListConnectedTo]="['in_progress_list', 'done_list']"
-          id="todo_list">
+          id="todo_list"
+          role="region"
+          aria-label="To-do tasks column">
           @for (task of todoTasks(); track task.id) {
             <app-task-card 
               [task]="task" 
               cdkDrag
               [cdkDragData]="task"
-              (taskDeleted)="onTaskDeleted($event)">
+              (taskDeleted)="onTaskDeleted($event)"
+              role="listitem"
+              aria-label="Task: {{ task.title }}">
             </app-task-card>
           }
           @if (todoTasks().length === 0) {
@@ -95,7 +54,7 @@
       <div class="column">
         <div class="column-header in-progress">
           <h2>בביצוע</h2>
-          <span class="count">{{ inProgressTasks().length }}</span>
+          <span class="count" aria-label="Number of in-progress tasks">{{ inProgressTasks().length }}</span>
         </div>
         <div 
           class="column-content"
@@ -103,18 +62,22 @@
           [cdkDropListData]="inProgressTasks()"
           (cdkDropListDropped)="onDrop($event, 'in_progress')"
           [cdkDropListConnectedTo]="['todo_list', 'done_list']"
-          id="in_progress_list">
+          id="in_progress_list"
+          role="region"
+          aria-label="In-progress tasks column">
           @for (task of inProgressTasks(); track task.id) {
             <app-task-card 
               [task]="task" 
               cdkDrag
               [cdkDragData]="task"
-              (taskDeleted)="onTaskDeleted($event)">
+              (taskDeleted)="onTaskDeleted($event)"
+              role="listitem"
+              aria-label="Task: {{ task.title }}">
             </app-task-card>
           }
           @if (inProgressTasks().length === 0) {
             <div class="empty-column">
-              <mat-icon>pending_actions</mat-icon>
+              <mat-icon aria-hidden="true">pending_actions</mat-icon>
               <p>אין משימות</p>
             </div>
           }
@@ -124,7 +87,7 @@
       <div class="column">
         <div class="column-header done">
           <h2>הושלם</h2>
-          <span class="count">{{ doneTasks().length }}</span>
+          <span class="count" aria-label="Number of completed tasks">{{ doneTasks().length }}</span>
         </div>
         <div 
           class="column-content"
@@ -132,18 +95,22 @@
           [cdkDropListData]="doneTasks()"
           (cdkDropListDropped)="onDrop($event, 'done')"
           [cdkDropListConnectedTo]="['todo_list', 'in_progress_list']"
-          id="done_list">
+          id="done_list"
+          role="region"
+          aria-label="Completed tasks column">
           @for (task of doneTasks(); track task.id) {
             <app-task-card 
               [task]="task" 
               cdkDrag
               [cdkDragData]="task"
-              (taskDeleted)="onTaskDeleted($event)">
+              (taskDeleted)="onTaskDeleted($event)"
+              role="listitem"
+              aria-label="Task: {{ task.title }}">
             </app-task-card>
           }
           @if (doneTasks().length === 0) {
             <div class="empty-column">
-              <mat-icon>done_all</mat-icon>
+              <mat-icon aria-hidden="true">done_all</mat-icon>
               <p>אין משימות</p>
             </div>
           }

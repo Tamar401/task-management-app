@@ -1,54 +1,72 @@
-<div class="teams-container">
-  <div class="header">
-    <h1>הצוותים שלי</h1>
-    <button mat-raised-button color="primary" (click)="openTeamDialog()">
-      <mat-icon>add</mat-icon>
-      צור צוות חדש
-    </button>
+<div class="teams-wrapper">
+  <div class="teams-header">
+    <div class="header-content">
+      <div>
+        <h1>הצוותים שלי</h1>
+        <p class="header-subtitle">נהל את הצוותים והפרויקטים שלך</p>
+      </div>
+      <button mat-raised-button class="create-team-btn" (click)="openTeamDialog()">
+        <mat-icon>add</mat-icon>
+        צור צוות חדש
+      </button>
+    </div>
   </div>
 
-  @if (loading()) {
-    <div class="loading-spinner">
-      <mat-spinner></mat-spinner>
-    </div>
-  } @else {
-    <div class="teams-grid">
-      @for (team of teams(); track team.id) {
-        <mat-card class="team-card">
-          <mat-card-header>
-            <mat-card-title>{{ team.name }}</mat-card-title>
-            <mat-card-subtitle>{{ team.memberCount }} חברים</mat-card-subtitle>
-          </mat-card-header>
-          
-          <mat-card-content>
-            <p>{{ team.description || 'אין תיאור' }}</p>
-          </mat-card-content>
-          
-          <mat-card-actions>
-            <button 
-              mat-button 
-              color="primary"
-              (click)="viewProjects(team.id)"
-              matTooltip="צפה בפרויקטים">
-              <mat-icon>arrow_back</mat-icon>
-              צפה בפרויקטים
-            </button>
-            <button 
-              mat-icon-button 
-              color="accent"
-              (click)="openAddMemberDialog(team.id, team.name)"
-              matTooltip="הוסף חבר לצוות">
-              <mat-icon>person_add</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      } @empty {
-        <div class="no-teams">
-          <mat-icon>groups</mat-icon>
+  <div class="teams-content">
+    @if (loading()) {
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    } @else {
+      @if (teams().length === 0) {
+        <div class="empty-state">
+          <div class="empty-icon">
+            <mat-icon>groups</mat-icon>
+          </div>
           <h2>עדיין אין צוותים</h2>
           <p>התחל על ידי יצירת הצוות הראשון שלך</p>
+          <button mat-raised-button class="create-team-btn" (click)="openTeamDialog()">
+            <mat-icon>add</mat-icon>
+            צור צוות חדש
+          </button>
+        </div>
+      } @else {
+        <div class="teams-grid">
+          @for (team of teams(); track team.id) {
+            <div class="team-card" (click)="viewProjects(team.id)">
+              <div class="card-header">
+                <div class="header-top">
+                  <div class="title-section">
+                    <h3>{{ team.name }}</h3>
+                    <span class="member-badge">{{ team.memberCount }} חברים</span>
+                  </div>
+                  <button 
+                    mat-icon-button
+                    class="add-member-btn"
+                    (click)="openAddMemberDialog(team.id, team.name); $event.stopPropagation()"
+                    matTooltip="הוסף חבר">
+                    <mat-icon>person_add</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card-divider"></div>
+
+              <div class="card-content">
+                <p class="team-description">{{ team.description || 'אין תיאור צוות' }}</p>
+              </div>
+
+              <div class="card-footer">
+                <div class="footer-left">
+                  <mat-icon>folder_open</mat-icon>
+                  <span>צפה בפרויקטים</span>
+                </div>
+                <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+              </div>
+            </div>
+          }
         </div>
       }
-    </div>
-  }
+    }
+  </div>
 </div>

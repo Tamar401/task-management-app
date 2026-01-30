@@ -1,27 +1,27 @@
 @if (isAuthenticated()) {
-  <mat-toolbar color="primary">
-    <span class="logo" routerLink="/teams">📋 ניהול משימות</span>
+  <mat-toolbar color="primary" role="navigation" aria-label="Navigation bar">
+    <span class="logo" routerLink="/teams" role="button" tabindex="0" aria-label="Go to teams page">📋 ניהול משימות</span>
     
     <span class="spacer"></span>
     
-    <button mat-button routerLink="/teams">
-      <mat-icon>groups</mat-icon>
+    <button mat-button routerLink="/teams" aria-label="My teams">
+      <mat-icon aria-hidden="true">groups</mat-icon>
       הצוותים שלי
     </button>
     
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
+    <button mat-button [matMenuTriggerFor]="menu" aria-label="User menu">
+      <mat-icon aria-hidden="true">account_circle</mat-icon>
       {{ currentUser()?.name }}
     </button>
     
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item disabled>
-        <mat-icon>email</mat-icon>
+    <mat-menu #menu="matMenu" role="menu">
+      <button mat-menu-item disabled aria-label="Email">
+        <mat-icon aria-hidden="true">email</mat-icon>
         <span>{{ currentUser()?.email }}</span>
       </button>
-      <mat-divider></mat-divider>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>logout</mat-icon>
+      <mat-divider role="separator"></mat-divider>
+      <button mat-menu-item (click)="logout()" aria-label="Logout">
+        <mat-icon aria-hidden="true">logout</mat-icon>
         <span>התנתק</span>
       </button>
     </mat-menu>

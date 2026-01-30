@@ -242,3 +242,228 @@ body {
 .mat-mdc-progress-spinner circle {
   stroke: url(#gradient) !important;
 }
+
+// ===== RTL (Right-to-Left) SUPPORT FOR HEBREW =====
+// Logical properties for RTL/LTR agnostic styling
+
+@mixin rtl-margin($top: 0, $inline-end: 0, $bottom: 0, $inline-start: 0) {
+  margin-block-start: $top;
+  margin-inline-end: $inline-end;
+  margin-block-end: $bottom;
+  margin-inline-start: $inline-start;
+}
+
+@mixin rtl-padding($top: 0, $inline-end: 0, $bottom: 0, $inline-start: 0) {
+  padding-block-start: $top;
+  padding-inline-end: $inline-end;
+  padding-block-end: $bottom;
+  padding-inline-start: $inline-start;
+}
+
+// RTL specific overrides
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+
+  // Fix Material icons direction
+  .mat-icon {
+    direction: ltr;
+  }
+
+  // Fix Material form fields
+  .mat-mdc-form-field {
+    text-align: right;
+
+    .mat-mdc-form-field-wrapper {
+      padding-bottom: 1.25em;
+    }
+  }
+
+  // Fix input elements
+  input, textarea {
+    direction: rtl;
+    text-align: right;
+  }
+
+  // Fix Material buttons
+  .mat-mdc-button, 
+  .mat-mdc-raised-button,
+  .mat-mdc-icon-button {
+    font-family: inherit;
+  }
+
+  // Fix Material toolbar
+  .mat-toolbar {
+    .mat-icon {
+      direction: ltr;
+    }
+  }
+
+  // Fix sidebars and navigation
+  .sidebar, 
+  nav {
+    margin-inline-start: 0;
+    margin-inline-end: auto;
+  }
+
+  // Fix cards
+  .mat-mdc-card {
+    @include rtl-padding(16px, 16px, 16px, 16px);
+  }
+
+  // Fix dialogs
+  .mat-mdc-dialog-container {
+    .mat-mdc-dialog-title {
+      text-align: right;
+      direction: rtl;
+    }
+
+    .mat-mdc-dialog-content {
+      text-align: right;
+      direction: rtl;
+    }
+  }
+
+  // Fix lists
+  .mat-mdc-list {
+    .mat-mdc-list-item {
+      text-align: right;
+      direction: rtl;
+
+      .mat-icon {
+        margin-inline-start: 16px;
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  // Fix tables
+  table {
+    direction: rtl;
+    text-align: right;
+
+    th, td {
+      text-align: right;
+      direction: rtl;
+    }
+  }
+
+  // Fix floating action buttons
+  .mat-mdc-fab {
+    margin-inline-start: auto;
+    margin-inline-end: 16px;
+  }
+
+  // Fix flex layouts
+  .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .flex-row {
+    flex-direction: row;
+
+    .item {
+      margin-inline-end: 0;
+      margin-inline-start: var(--spacing-md);
+    }
+  }
+
+  // Fix Material menu
+  .mat-mdc-menu-content {
+    direction: rtl;
+
+    .mat-mdc-menu-item {
+      text-align: right;
+      direction: rtl;
+    }
+  }
+
+  // Fix Material tooltip
+  .mat-tooltip {
+    direction: rtl;
+    text-align: right;
+  }
+
+  // Fix scrollbar position (stays on right even in RTL)
+  ::-webkit-scrollbar {
+    position: absolute;
+    right: 0;
+  }
+}
+
+// LTR (Left-to-Right) Support as fallback
+html[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
+
+  input, textarea {
+    direction: ltr;
+    text-align: left;
+  }
+
+  .sidebar, 
+  nav {
+    margin-inline-end: 0;
+    margin-inline-start: auto;
+  }
+
+  .mat-mdc-fab {
+    margin-inline-end: auto;
+    margin-inline-start: 16px;
+  }
+
+  .flex-row {
+    .item {
+      margin-inline-start: 0;
+      margin-inline-end: var(--spacing-md);
+    }
+  }
+}
+
+// Utility classes for RTL/LTR
+.text-rtl {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.text-ltr {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+.icon-rtl {
+  transform: scaleX(-1);
+}
+
+// RTL specific animations
+@keyframes slideInRtl {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRtl {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+html[dir="rtl"] {
+  .slide-in {
+    animation: slideInRtl 300ms ease-out;
+  }
+
+  .slide-out {
+    animation: slideOutRtl 300ms ease-out;
+  }
+}

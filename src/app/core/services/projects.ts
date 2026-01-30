@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap, catchError, throwError, map } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { Project, CreateProjectRequest } from '../models/project.model';
+import { ProjectServerResponse } from '../models/server-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +15,20 @@ export class ProjectsService {
   projects = signal<Project[]>([]);
   loading = signal(false);
 
-  private normalizeProject(serverProject: any): Project {
+  private normalizeProject(serverProject: ProjectServerResponse): Project {
     return {
       id: serverProject.id,
       name: serverProject.name,
       description: serverProject.description,
-      teamId: serverProject.team_id || serverProject.teamId,
-      teamName: serverProject.team_name || serverProject.teamName,
-      createdAt: serverProject.created_at || serverProject.createdAt
+      teamId: serverProject.team_id,
+      teamName: '',
+      createdAt: serverProject.created_at
     };
   }
 
   loadProjects(): Observable<Project[]> {
     this.loading.set(true);
-    return this.http.get<any[]>(this.apiUrl).pipe(
+    return this.http.get<ProjectServerResponse[]>(this.apiUrl).pipe(
       map(projects => projects.map(p => this.normalizeProject(p))),
       tap(projects => {
         this.projects.set(projects);

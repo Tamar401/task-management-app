@@ -1,20 +1,105 @@
+.dialog-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2533;
+  }
+}
+
+.dialog-content {
+  padding: 24px;
+  min-width: 480px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .full-width {
   width: 100%;
-  margin-bottom: 16px;
   
   ::ng-deep {
     .mat-mdc-text-field-wrapper {
-      background-color: var(--bg-secondary);
-      border-radius: 6px;
+      background-color: transparent;
     }
     
-    .mat-mdc-form-field {
-      font-size: 14px;
+    .mat-mdc-form-field-hint {
+      color: #6d7175;
+      font-size: 13px;
+    }
+    
+    .mat-mdc-form-field-error {
+      color: #ef4444;
+      font-size: 12px;
+    }
+    
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #d1d5db;
+    }
+    
+    &:hover .mdc-notched-outline__leading,
+    &:hover .mdc-notched-outline__notch,
+    &:hover .mdc-notched-outline__trailing {
+      border-color: #9ca3af;
+    }
+    
+    &.mat-focused .mdc-notched-outline__leading,
+    &.mat-focused .mdc-notched-outline__notch,
+    &.mat-focused .mdc-notched-outline__trailing {
+      border-color: #7B68EE;
+      border-width: 2px;
     }
   }
 }
 
-mat-dialog-content {
-  min-width: 450px;
-  padding: 20px 24px;
+textarea {
+  font-family: inherit;
+  font-size: 14px;
+  color: #1f2533;
+  resize: vertical;
+  min-height: 120px;
+  
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  gap: 12px;
+  
+  .cancel-btn {
+    color: #6d7175;
+    
+    &:hover {
+      background-color: #f3f4f6;
+    }
+  }
+  
+  .create-btn {
+    background-color: #7B68EE;
+    color: white;
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    
+    &:hover:not(:disabled) {
+      background-color: #6C5CE7;
+      box-shadow: 0 4px 12px rgba(123, 104, 238, 0.3);
+    }
+    
+    &:disabled {
+      background-color: #d1d5db;
+      color: #9ca3af;
+    }
+  }
 }

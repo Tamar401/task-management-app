@@ -1,7 +1,9 @@
-<h2 mat-dialog-title>צור צוות חדש</h2>
+<div class="dialog-header">
+  <h2 mat-dialog-title>צור צוות חדש</h2>
+</div>
 
-<mat-dialog-content>
-  <form [formGroup]="teamForm">
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="teamForm" class="form-container">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>שם הצוות</mat-label>
       <input matInput formControlName="name" placeholder="לדוגמה: צוות פיתוח">
@@ -14,18 +16,20 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>תיאור (אופציונלי)</mat-label>
-      <textarea matInput formControlName="description" rows="3" 
+      <mat-label>תיאור צוות</mat-label>
+      <textarea matInput formControlName="description" rows="4" 
                 placeholder="תאר את מטרת הצוות..."></textarea>
+      <mat-hint>תיאור כללי של מטרות הצוות</mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">ביטול</button>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="onCancel()" class="cancel-btn">ביטול</button>
   <button mat-raised-button color="primary" 
           (click)="onSubmit()" 
-          [disabled]="loading() || teamForm.invalid">
+          [disabled]="loading() || teamForm.invalid"
+          class="create-btn">
     {{ loading() ? 'יוצר...' : 'צור צוות' }}
   </button>
 </mat-dialog-actions>

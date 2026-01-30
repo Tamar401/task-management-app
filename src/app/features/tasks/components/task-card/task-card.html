@@ -1,21 +1,25 @@
-<mat-card class="task-card">
+<mat-card class="task-card" role="article" [attr.aria-label]="'Task: ' + task().title">
   <mat-card-header>
     <mat-card-title>{{ task().title }}</mat-card-title>
   </mat-card-header>
   
   <mat-card-content>
     @if (task().description) {
-      <p class="description">{{ task().description }}</p>
+      <p class="description" role="text">{{ task().description }}</p>
     }
     
     <div class="task-meta">
-      <mat-chip [color]="getPriorityColor(task().priority)" highlighted>
+      <mat-chip 
+        [color]="getPriorityColor(task().priority)" 
+        highlighted
+        role="status"
+        [attr.aria-label]="'Priority: ' + getPriorityLabel(task().priority)">
         {{ getPriorityLabel(task().priority) }}
       </mat-chip>
     </div>
   </mat-card-content>
   
-  <mat-card-actions>
+  <mat-card-actions role="toolbar" aria-label="Task actions">
     <button 
       mat-icon-button 
       (click)="openComments($event)" 
@@ -23,14 +27,15 @@
       [matBadge]="commentsCount()"
       [matBadgeHidden]="commentsCount() === 0"
       matBadgeColor="accent"
-      matBadgeSize="small">
-      <mat-icon>chat_bubble</mat-icon>
+      matBadgeSize="small"
+      [attr.aria-label]="'Comments (' + commentsCount() + ')'">
+      <mat-icon aria-hidden="true">chat_bubble</mat-icon>
     </button>
-    <button mat-icon-button (click)="editTask($event)" matTooltip="ערוך">
-      <mat-icon>edit</mat-icon>
+    <button mat-icon-button (click)="editTask($event)" matTooltip="ערוך" aria-label="Edit task">
+      <mat-icon aria-hidden="true">edit</mat-icon>
     </button>
-    <button mat-icon-button (click)="deleteTask($event)" matTooltip="מחק" color="warn">
-      <mat-icon>delete</mat-icon>
+    <button mat-icon-button (click)="deleteTask($event)" matTooltip="מחק" color="warn" aria-label="Delete task">
+      <mat-icon aria-hidden="true">delete</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

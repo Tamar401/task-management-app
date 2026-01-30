@@ -65,18 +65,19 @@ export class AuthService {
   }
 
   private handleAuthSuccess(response: AuthResponse): void {
-    localStorage.setItem('token', response.token);
+    // Store in sessionStorage for security (cleared on browser close)
+    sessionStorage.setItem('token', response.token);
     this.currentUserSignal.set(response.user);
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.currentUserSignal.set(null);
     this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   private isTokenValid(token: string): boolean {

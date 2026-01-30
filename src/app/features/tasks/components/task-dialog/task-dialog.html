@@ -50,14 +50,6 @@
         </form>
       </div>
     </mat-tab>
-
-    @if (isEditMode() && data.task) {
-      <mat-tab label="תגובות">
-        <div class="tab-content">
-          <app-comments-section [taskId]="data.task.id" />
-        </div>
-      </mat-tab>
-    }
   </mat-tab-group>
 </mat-dialog-content>
 

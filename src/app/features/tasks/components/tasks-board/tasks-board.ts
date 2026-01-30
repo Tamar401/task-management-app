@@ -146,6 +146,6 @@ export class TasksBoardComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/projects', this.route.snapshot.paramMap.get('teamId')]);
+    this.router.navigate(['/projects']);
   }
 }
