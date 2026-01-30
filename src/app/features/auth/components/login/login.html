@@ -27,10 +27,10 @@
             type="email" 
             placeholder="your@email.com"
             class="form-input">
-          @if (loginForm.controls.email.hasError('required')) {
+          @if (shouldShowError('email') && loginForm.controls.email.hasError('required')) {
             <span class="error-message">אימייל הוא שדה חובה</span>
           }
-          @if (loginForm.controls.email.hasError('email')) {
+          @if (shouldShowError('email') && loginForm.controls.email.hasError('email')) {
             <span class="error-message">אנא הזן אימייל תקין</span>
           }
         </div>
@@ -42,10 +42,10 @@
             type="password" 
             placeholder="סיסמה"
             class="form-input">
-          @if (loginForm.controls.password.hasError('required')) {
+          @if (shouldShowError('password') && loginForm.controls.password.hasError('required')) {
             <span class="error-message">סיסמה היא שדה חובה</span>
           }
-          @if (loginForm.controls.password.hasError('minlength')) {
+          @if (shouldShowError('password') && loginForm.controls.password.hasError('minlength')) {
             <span class="error-message">הסיסמה חייבת להכיל לפחות 6 תווים</span>
           }
         </div>

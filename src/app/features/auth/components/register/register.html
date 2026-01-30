@@ -27,10 +27,10 @@
             type="text" 
             placeholder="שם מלא"
             class="form-input">
-          @if (registerForm.controls.name.hasError('required')) {
+          @if (shouldShowError('name') && registerForm.controls.name.hasError('required')) {
             <span class="error-message">שם הוא שדה חובה</span>
           }
-          @if (registerForm.controls.name.hasError('minlength')) {
+          @if (shouldShowError('name') && registerForm.controls.name.hasError('minlength')) {
             <span class="error-message">השם חייב להכיל לפחות 2 תווים</span>
           }
         </div>
@@ -42,10 +42,10 @@
             type="email" 
             placeholder="your@email.com"
             class="form-input">
-          @if (registerForm.controls.email.hasError('required')) {
+          @if (shouldShowError('email') && registerForm.controls.email.hasError('required')) {
             <span class="error-message">אימייל הוא שדה חובה</span>
           }
-          @if (registerForm.controls.email.hasError('email')) {
+          @if (shouldShowError('email') && registerForm.controls.email.hasError('email')) {
             <span class="error-message">אנא הזן אימייל תקין</span>
           }
         </div>
@@ -57,10 +57,10 @@
             type="password" 
             placeholder="סיסמה"
             class="form-input">
-          @if (registerForm.controls.password.hasError('required')) {
+          @if (shouldShowError('password') && registerForm.controls.password.hasError('required')) {
             <span class="error-message">סיסמה היא שדה חובה</span>
           }
-          @if (registerForm.controls.password.hasError('minlength')) {
+          @if (shouldShowError('password') && registerForm.controls.password.hasError('minlength')) {
             <span class="error-message">הסיסמה חייבת להכיל לפחות 6 תווים</span>
           }
         </div>

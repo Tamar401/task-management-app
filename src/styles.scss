@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 
-// ערכת צבעים מותאמת לClickUp
-$my-primary: mat.m2-define-palette(mat.$m2-purple-palette, 500);
-$my-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+// ערכת צבעים - כחול וירוק
+$my-primary: mat.m2-define-palette(mat.$m2-blue-palette, 500);
+$my-accent: mat.m2-define-palette(mat.$m2-teal-palette, A200, A100, A400);
 $my-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 $my-theme: mat.m2-define-light-theme((
@@ -18,14 +18,14 @@ $my-theme: mat.m2-define-light-theme((
 @include mat.core();
 @include mat.all-component-themes($my-theme);
 
-// צבעים גלובליים בסגנון ClickUp
+// צבעים גלובליים - כחול וירוק
 :root {
-  --primary-color: #7B68EE;
-  --primary-hover: #6C5CE7;
-  --secondary-color: #49CCF9;
-  --success-color: #49D0B0;
-  --warning-color: #FFB946;
-  --danger-color: #F06A6A;
+  --primary-color: #0366D6;
+  --primary-hover: #0252AE;
+  --secondary-color: #06B6D4;
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --danger-color: #EF4444;
   --text-primary: #1F2533;
   --text-secondary: #6D7175;
   --border-color: #E2E8F0;

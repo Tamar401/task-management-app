@@ -30,11 +30,30 @@ export class LoginComponent {
   private snackBar = inject(MatSnackBar);
 
   loading = signal(false);
+  touched = signal({
+    email: false,
+    password: false
+  });
 
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
   });
+
+  constructor() {
+    // Track when user starts typing
+    this.loginForm.get('email')?.valueChanges.subscribe(() => {
+      this.touched.update(t => ({ ...t, email: true }));
+    });
+    this.loginForm.get('password')?.valueChanges.subscribe(() => {
+      this.touched.update(t => ({ ...t, password: true }));
+    });
+  }
+
+  shouldShowError(fieldName: string): boolean {
+    const field = this.loginForm.get(fieldName);
+    return field?.invalid && this.touched()[fieldName as keyof typeof this.touched()] ? true : false;
+  }
 
   onSubmit(): void {
     if (this.loginForm.valid) {

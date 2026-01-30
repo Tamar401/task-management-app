@@ -30,12 +30,35 @@ export class RegisterComponent {
   private snackBar = inject(MatSnackBar);
 
   loading = signal(false);
+  touched = signal({
+    name: false,
+    email: false,
+    password: false
+  });
 
   registerForm = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]]
   });
+
+  constructor() {
+    // Track when user starts typing
+    this.registerForm.get('name')?.valueChanges.subscribe(() => {
+      this.touched.update(t => ({ ...t, name: true }));
+    });
+    this.registerForm.get('email')?.valueChanges.subscribe(() => {
+      this.touched.update(t => ({ ...t, email: true }));
+    });
+    this.registerForm.get('password')?.valueChanges.subscribe(() => {
+      this.touched.update(t => ({ ...t, password: true }));
+    });
+  }
+
+  shouldShowError(fieldName: string): boolean {
+    const field = this.registerForm.get(fieldName);
+    return field?.invalid && this.touched()[fieldName as keyof typeof this.touched()]  ? true : false;
+  }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
