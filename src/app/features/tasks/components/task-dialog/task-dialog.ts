@@ -8,7 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Task, TaskStatus, TaskPriority } from '../../../../core/models/task.model';
-import { CommentsSectionComponent } from '../comments-section/comments-section';
 import { TasksService } from '../../../../core/services/tasks';
 
 
@@ -28,8 +27,7 @@ interface DialogData {
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatTabsModule,
-    CommentsSectionComponent
+    MatTabsModule
   ],
   templateUrl: './task-dialog.html',
   styleUrl: './task-dialog.scss'

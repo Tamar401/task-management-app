@@ -57,7 +57,8 @@ export class RegisterComponent {
 
   shouldShowError(fieldName: string): boolean {
     const field = this.registerForm.get(fieldName);
-    return field?.invalid && this.touched()[fieldName as keyof typeof this.touched()]  ? true : false;
+    const touchedObj = this.touched();
+    return field?.invalid && (touchedObj as any)[fieldName] ? true : false;
   }
 
   onSubmit(): void {
