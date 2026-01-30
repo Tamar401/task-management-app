@@ -52,8 +52,9 @@ export class LoginComponent {
 
   shouldShowError(fieldName: string): boolean {
     const field = this.loginForm.get(fieldName);
-    const touchedObj = this.touched();
-    return field?.invalid && (touchedObj as any)[fieldName] ? true : false;
+    const touchedValue = this.touched();
+    const isTouched = (touchedValue as any)[fieldName];
+    return !!(field?.invalid && isTouched);
   }
 
   onSubmit(): void {
