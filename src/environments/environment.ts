@@ -1,5 +1,5 @@
 // Development environment configuration
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api'
+  apiUrl: 'https://chanis-tasks-serve.onrender.com/api'
 };

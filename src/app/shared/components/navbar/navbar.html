@@ -1,12 +1,12 @@
 @if (isAuthenticated()) {
   <mat-toolbar color="primary" role="navigation" aria-label="Navigation bar">
-    <span class="logo" routerLink="/teams" role="button" tabindex="0" aria-label="Go to teams page">📋 ניהול משימות</span>
+    <span class="logo" routerLink="/teams" role="button" tabindex="0" aria-label="Go to teams page">📋 Task Management</span>
     
     <span class="spacer"></span>
     
     <button mat-button routerLink="/teams" aria-label="My teams">
       <mat-icon aria-hidden="true">groups</mat-icon>
-      הצוותים שלי
+      My Teams
     </button>
     
     <button mat-button [matMenuTriggerFor]="menu" aria-label="User menu">
@@ -22,7 +22,7 @@
       <mat-divider role="separator"></mat-divider>
       <button mat-menu-item (click)="logout()" aria-label="Logout">
         <mat-icon aria-hidden="true">logout</mat-icon>
-        <span>התנתק</span>
+        <span>Sign Out</span>
       </button>
     </mat-menu>
   </mat-toolbar>

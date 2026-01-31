@@ -69,11 +69,11 @@ export class RegisterComponent {
       this.authService.register(this.registerForm.getRawValue()).subscribe({
         next: () => {
           this.router.navigate(['/teams']);
-          this.snackBar.open('נרשמת בהצלחה!', 'סגור', { duration: 3000 });
+          this.snackBar.open('Signed up successfully!', 'Close', { duration: 3000 });
         },
         error: () => {
           this.loading.set(false);
-          this.snackBar.open('שגיאה ברישום. נסה שוב.', 'סגור', { duration: 3000 });
+          this.snackBar.open('Sign up failed. Please try again.', 'Close', { duration: 3000 });
         }
       });
     }

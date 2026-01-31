@@ -15,38 +15,38 @@
 
     <div class="card-content">
       <div class="welcome-section">
-        <h1>ברוך הבא</h1>
-        <p>התחבר לחשבונך כדי להמשיך</p>
+        <h1>Welcome Back</h1>
+        <p>Sign in to your account to continue</p>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
         <div class="form-group">
-          <label>אימייל</label>
+          <label>Email</label>
           <input 
             formControlName="email" 
             type="email" 
             placeholder="your@email.com"
             class="form-input">
           @if (shouldShowError('email') && loginForm.controls.email.hasError('required')) {
-            <span class="error-message">אימייל הוא שדה חובה</span>
+            <span class="error-message">Email is required</span>
           }
           @if (shouldShowError('email') && loginForm.controls.email.hasError('email')) {
-            <span class="error-message">אנא הזן אימייל תקין</span>
+            <span class="error-message">Please enter a valid email</span>
           }
         </div>
 
         <div class="form-group">
-          <label>סיסמה</label>
+          <label>Password</label>
           <input 
             formControlName="password" 
             type="password" 
-            placeholder="סיסמה"
+            placeholder="Password"
             class="form-input">
           @if (shouldShowError('password') && loginForm.controls.password.hasError('required')) {
-            <span class="error-message">סיסמה היא שדה חובה</span>
+            <span class="error-message">Password is required</span>
           }
           @if (shouldShowError('password') && loginForm.controls.password.hasError('minlength')) {
-            <span class="error-message">הסיסמה חייבת להכיל לפחות 6 תווים</span>
+            <span class="error-message">Password must be at least 6 characters</span>
           }
         </div>
 
@@ -56,15 +56,15 @@
           [disabled]="loading() || loginForm.invalid">
           @if (loading()) {
             <span class="spinner"></span>
-            מתחבר...
+            Signing In...
           } @else {
-            התחבר
+            Sign In
           }
         </button>
       </form>
 
       <div class="footer-section">
-        <p>עדיין אין לך חשבון? <a routerLink="/register" class="register-link">הירשם כאן</a></p>
+        <p>Don't have an account? <a routerLink="/register" class="register-link">Sign up here</a></p>
       </div>
     </div>
   </div>

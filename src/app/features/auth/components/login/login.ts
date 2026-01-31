@@ -64,11 +64,11 @@ export class LoginComponent {
       this.authService.login(this.loginForm.getRawValue()).subscribe({
         next: () => {
           this.router.navigate(['/teams']);
-          this.snackBar.open('התחברת בהצלחה!', 'סגור', { duration: 3000 });
+          this.snackBar.open('Signed in successfully!', 'Close', { duration: 3000 });
         },
         error: () => {
           this.loading.set(false);
-          this.snackBar.open('שגיאה בהתחברות. בדוק את הפרטים ונסה שוב.', 'סגור', { 
+          this.snackBar.open('Sign in failed. Please check your details and try again.', 'Close', { 
             duration: 3000 
           });
         }
