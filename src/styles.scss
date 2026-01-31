@@ -1,5 +1,25 @@
 @use '@angular/material' as mat;
+/* אנימציית רקע חיה - Deep Breathing Gradient */
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
+/* אנימציית ציפה לצורות */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* משתנים לצבעים */
+:root {
+  --primary-gradient: linear-gradient(-45deg, #2563eb, #10b981, #0ea5e9, #22c55e);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
 // Color palette - Blue and Green
 $my-primary: mat.m2-define-palette(mat.$m2-blue-palette, 500);
 $my-accent: mat.m2-define-palette(mat.$m2-teal-palette, A200, A100, A400);
@@ -61,7 +81,7 @@ $my-theme: mat.m2-define-light-theme((
 
 html, body {
   height: 100%;
-  direction: rtl;
+  direction: ltr;
 }
 
 body {

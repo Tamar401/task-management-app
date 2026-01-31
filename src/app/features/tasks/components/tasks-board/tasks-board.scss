@@ -42,24 +42,33 @@
     color: var(--text-primary);
   }
   
-  button[mat-raised-button] {
-    height: 36px;
-    padding: 0 20px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 6px;
-    background: var(--primary-color);
-    box-shadow: none;
-    text-transform: none;
-    
-    &:hover {
-      background: var(--primary-hover);
-    }
-    
-    mat-icon {
-      margin-left: 6px;
-    }
+button[mat-icon-button] {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: 6px;
+  
+
+  display: flex;           
+  align-items: center;      
+  justify-content: center;   
+  padding: 0;               
+
+  &:hover {
+    background: var(--border-color);
   }
+
+  mat-icon {
+    margin: 0;            
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;        
+    width: 20px;
+    height: 20px;
+  }
+}
 }
 
 // Filter styles

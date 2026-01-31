@@ -17,7 +17,6 @@ mat-toolbar {
     align-items: center;
     gap: 8px;
     transition: opacity 0.2s;
-    order: 1;
     
     &:hover {
       opacity: 0.8;
@@ -40,11 +39,6 @@ mat-toolbar {
     &:hover {
       background-color: var(--bg-tertiary);
       color: var(--text-primary);
-    }
-    
-    &.nav-teams-btn {
-      margin-left: 0;
-      order: 2;
     }
     
     mat-icon {

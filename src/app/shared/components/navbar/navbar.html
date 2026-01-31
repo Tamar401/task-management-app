@@ -1,19 +1,21 @@
 @if (isAuthenticated()) {
   <mat-toolbar color="primary" role="navigation" aria-label="Navigation bar">
-    <span class="logo" routerLink="/teams" role="button" tabindex="0" aria-label="Go to teams page">📋 Task Management</span>
-    
+    <span class="logo" routerLink="/teams" role="button" tabindex="0" aria-label="Go to teams page">
+      📋 Task Management
+    </span>
+
+    <span class="spacer"></span>
+
     <button mat-button routerLink="/teams" aria-label="My teams" class="nav-teams-btn">
       <mat-icon aria-hidden="true">groups</mat-icon>
       My Teams
     </button>
     
-    <span class="spacer"></span>
-    
     <button mat-button [matMenuTriggerFor]="menu" aria-label="User menu">
       <mat-icon aria-hidden="true">account_circle</mat-icon>
       {{ currentUser()?.name }}
     </button>
-    
+
     <mat-menu #menu="matMenu" role="menu">
       <button mat-menu-item disabled aria-label="Email">
         <mat-icon aria-hidden="true">email</mat-icon>
