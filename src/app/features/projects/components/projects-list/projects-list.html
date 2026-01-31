@@ -6,12 +6,12 @@
   } @else {
     <div class="header-section">
       <div class="title-section">
-        <h1>הפרויקטים שלי</h1>
-        <p class="subtitle">נהל את הפרויקטים והפרויקטים שלך</p>
+        <h1>My Projects</h1>
+        <p class="subtitle">Manage your projects and tasks</p>
       </div>
       <button mat-raised-button class="create-btn" (click)="openProjectDialog()">
         <mat-icon>add</mat-icon>
-        צור פרויקט חדש
+        Create New Project
       </button>
     </div>
     <div class="projects-grid">
@@ -27,7 +27,7 @@
           <div class="card-content">
             <div class="members-info">
               <mat-icon>people</mat-icon>
-              <span>{{ project.memberCount || 0 }} חברים</span>
+              <span>{{ project.memberCount || 0 }} Members</span>
             </div>
           </div>
 
@@ -36,14 +36,14 @@
           <div class="card-footer">
             <button class="back-link" (click)="viewTasks(project.id)">
               <mat-icon>arrow_forward_ios</mat-icon>
-              צפה במשימות
+              View Tasks
             </button>
           </div>
         </div>
       } @empty {
         <div class="empty-state">
-          <h2>אין פרויקטים</h2>
-          <p>עדיין לא יצרת פרויקטים לצוות זה</p>
+          <h2>No Projects</h2>
+          <p>You haven't created any projects for this team yet</p>
         </div>
       }
     </div>

@@ -2,12 +2,12 @@
   <div class="teams-header">
     <div class="header-content">
       <div>
-        <h1>הצוותים שלי</h1>
-        <p class="header-subtitle">נהל את הצוותים והפרויקטים שלך</p>
+        <h1>My Teams</h1>
+        <p class="header-subtitle">Manage your teams and projects</p>
       </div>
       <button mat-raised-button class="create-team-btn" (click)="openTeamDialog()">
         <mat-icon>add</mat-icon>
-        צור צוות חדש
+        Create New Team
       </button>
     </div>
   </div>
@@ -23,11 +23,11 @@
           <div class="empty-icon">
             <mat-icon>groups</mat-icon>
           </div>
-          <h2>עדיין אין צוותים</h2>
-          <p>התחל על ידי יצירת הצוות הראשון שלך</p>
+          <h2>No Teams Yet</h2>
+          <p>Start by creating your first team</p>
           <button mat-raised-button class="create-team-btn" (click)="openTeamDialog()">
             <mat-icon>add</mat-icon>
-            צור צוות חדש
+            Create New Team
           </button>
         </div>
       } @else {
@@ -38,13 +38,13 @@
                 <div class="header-top">
                   <div class="title-section">
                     <h3>{{ team.name }}</h3>
-                    <span class="member-badge">{{ team.memberCount }} חברים</span>
+                    <span class="member-badge">{{ team.memberCount }} Members</span>
                   </div>
                   <button 
                     mat-icon-button
                     class="add-member-btn"
                     (click)="openAddMemberDialog(team.id, team.name); $event.stopPropagation()"
-                    matTooltip="הוסף חבר">
+                    matTooltip="Add member">
                     <mat-icon>person_add</mat-icon>
                   </button>
                 </div>
@@ -53,13 +53,13 @@
               <div class="card-divider"></div>
 
               <div class="card-content">
-                <p class="team-description">{{ team.description || 'אין תיאור צוות' }}</p>
+                <p class="team-description">{{ team.description || 'No team description' }}</p>
               </div>
 
               <div class="card-footer">
                 <div class="footer-left">
                   <mat-icon>folder_open</mat-icon>
-                  <span>צפה בפרויקטים</span>
+                  <span>View Projects</span>
                 </div>
                 <mat-icon class="arrow-icon">arrow_forward</mat-icon>
               </div>

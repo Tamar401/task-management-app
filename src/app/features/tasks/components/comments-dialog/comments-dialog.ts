@@ -81,7 +81,7 @@ handleEnterKey(e: Event): void {
       error: (error) => {
         console.error('Error loading comments:', error);
         this.loading.set(false);
-        this.snackBar.open('שגיאה בטעינת התגובות', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error loading comments', 'Close', { duration: 3000 });
       }
     });
   }
@@ -97,7 +97,7 @@ handleEnterKey(e: Event): void {
 
       this.commentsService.createComment(commentData).subscribe({
         next: (newComment) => {
-          // הוסף את התגובה החדשה לרשימה המקומית
+          // Add new comment to local list
           this.comments.update(comments => [...comments, newComment]);
           this.commentForm.reset();
           this.submitting.set(false);
@@ -106,7 +106,7 @@ handleEnterKey(e: Event): void {
         error: (error) => {
           console.error('Error creating comment:', error);
           this.submitting.set(false);
-          this.snackBar.open('שגיאה בהוספת התגובה', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error adding comment', 'Close', { duration: 3000 });
         }
       });
     }
@@ -120,14 +120,14 @@ handleEnterKey(e: Event): void {
   }
 
   deleteComment(commentId: number): void {
-    if (confirm('האם אתה בטוח שברצונך למחוק את התגובה?')) {
+    if (confirm('Are you sure you want to delete this comment?')) {
       this.commentsService.deleteComment(commentId, this.data.taskId).subscribe({
         next: () => {
-          this.snackBar.open('התגובה נמחקה בהצלחה', 'סגור', { duration: 2000 });
+          this.snackBar.open('Comment deleted successfully', 'Close', { duration: 2000 });
         },
         error: (error) => {
           console.error('Error deleting comment:', error);
-          this.snackBar.open('שגיאה במחיקת התגובה', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error deleting comment', 'Close', { duration: 3000 });
         }
       });
     }

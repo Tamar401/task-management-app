@@ -63,9 +63,9 @@ export class TaskCardComponent {
 
   getPriorityLabel(priority: string): string {
     const labels = {
-      'low': 'נמוכה',
-      'medium': 'בינונית',
-      'high': 'גבוהה'
+      'low': 'Low',
+      'medium': 'Medium',
+      'high': 'High'
     };
     return labels[priority as keyof typeof labels] || priority;
   }
@@ -104,7 +104,7 @@ export class TaskCardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.snackBar.open('המשימה עודכנה בהצלחה!', 'סגור', { duration: 2000 });
+        this.snackBar.open('Task updated successfully!', 'Close', { duration: 2000 });
       }
     });
   }
@@ -112,14 +112,14 @@ export class TaskCardComponent {
   deleteTask(event: Event): void {
     event.stopPropagation();
     
-    if (confirm('האם אתה בטוח שברצונך למחוק משימה זו?')) {
+    if (confirm('Are you sure you want to delete this task?')) {
       this.tasksService.deleteTask(this.task().id).subscribe({
         next: () => {
           this.taskDeleted.emit(this.task().id);
-          this.snackBar.open('המשימה נמחקה בהצלחה!', 'סגור', { duration: 2000 });
+          this.snackBar.open('Task deleted successfully!', 'Close', { duration: 2000 });
         },
         error: () => {
-          this.snackBar.open('שגיאה במחיקת המשימה', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error deleting task', 'Close', { duration: 3000 });
         }
       });
     }

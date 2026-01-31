@@ -38,12 +38,12 @@ export class TeamDialogComponent {
     if (this.teamForm.valid) {
       this.loading.set(true);
       
-      // בניית האובייקט רק עם השדות שמולאו
+      // Build object with only populated fields
       const teamData: any = {
         name: this.teamForm.value.name!
       };
       
-      // הוספת description רק אם הוא לא ריק
+      // Add description only if it's not empty
       if (this.teamForm.value.description && this.teamForm.value.description.trim()) {
         teamData.description = this.teamForm.value.description.trim();
       }
@@ -54,7 +54,7 @@ export class TeamDialogComponent {
         },
         error: (error) => {
           this.loading.set(false);
-          this.snackBar.open('שגיאה ביצירת הצוות', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error creating team', 'Close', { duration: 3000 });
         }
       });
     }

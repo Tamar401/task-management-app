@@ -1,31 +1,31 @@
-<h2 mat-dialog-title>צור פרויקט חדש</h2>
+<h2 mat-dialog-title>Create New Project</h2>
 
 <mat-dialog-content>
   <form [formGroup]="projectForm">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>שם הפרויקט</mat-label>
-      <input matInput formControlName="name" placeholder="לדוגמה: אפליקציית מובייל">
+      <mat-label>Project Name</mat-label>
+      <input matInput formControlName="name" placeholder="e.g., Mobile App">
       @if (projectForm.controls.name.hasError('required')) {
-        <mat-error>שם הפרויקט הוא שדה חובה</mat-error>
+        <mat-error>Project name is required</mat-error>
       }
       @if (projectForm.controls.name.hasError('minlength')) {
-        <mat-error>השם חייב להכיל לפחות 2 תווים</mat-error>
+        <mat-error>Name must be at least 2 characters</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>תיאור (אופציונלי)</mat-label>
+      <mat-label>Description (Optional)</mat-label>
       <textarea matInput formControlName="description" rows="3" 
-                placeholder="תאר את מטרת הפרויקט..."></textarea>
+                placeholder="Describe the project purpose..."></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">ביטול</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
   <button mat-raised-button color="primary" 
           (click)="onSubmit()" 
           [disabled]="loading() || projectForm.invalid">
-    {{ loading() ? 'יוצר...' : 'צור פרויקט' }}
+    {{ loading() ? 'Creating...' : 'Create Project' }}
   </button>
 </mat-dialog-actions>

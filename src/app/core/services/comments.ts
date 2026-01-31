@@ -24,7 +24,7 @@ export class CommentsService {
       body: serverComment.body,
       taskId: serverComment.task_id,
       userId: serverComment.user_id,
-      userName: serverComment.author_name || 'משתמש אנונימי',
+      userName: serverComment.author_name || 'Anonymous User',
       createdAt: serverComment.created_at
     };
   }

@@ -20,16 +20,16 @@
       font-size: 32px;
       font-weight: 700;
       color: #1f2533;
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
 
     .subtitle {
       margin: 0;
       font-size: 14px;
       color: #9ca3af;
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
   }
 
@@ -110,7 +110,7 @@
       font-weight: 700;
       color: #1f2533;
       word-break: break-word;
-      direction: rtl;
+      direction: ltr;
     }
     
     .card-subtitle {
@@ -118,7 +118,7 @@
       font-size: 13px;
       color: #9ca3af;
       font-weight: 500;
-      direction: rtl;
+      direction: ltr;
     }
   }
   
@@ -141,7 +141,7 @@
       font-size: 14px;
       color: #6d7175;
       font-weight: 500;
-      direction: rtl;
+      direction: ltr;
       
       mat-icon {
         font-size: 18px;
@@ -158,7 +158,7 @@
     background: #fafafa;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 8px;
     
     .back-link {
@@ -173,7 +173,7 @@
       gap: 6px;
       transition: all 0.2s ease;
       padding: 4px 0;
-      direction: rtl;
+      direction: ltr;
       
       mat-icon {
         font-size: 14px;

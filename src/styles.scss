@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-// ערכת צבעים - כחול וירוק
+// Color palette - Blue and Green
 $my-primary: mat.m2-define-palette(mat.$m2-blue-palette, 500);
 $my-accent: mat.m2-define-palette(mat.$m2-teal-palette, A200, A100, A400);
 $my-warn: mat.m2-define-palette(mat.$m2-red-palette);
@@ -18,7 +18,7 @@ $my-theme: mat.m2-define-light-theme((
 @include mat.core();
 @include mat.all-component-themes($my-theme);
 
-// צבעים גלובליים - כחול וירוק
+// Global colors - Blue and Green
 :root {
   --primary-color: #0366D6;
   --primary-hover: #0252AE;
@@ -159,7 +159,7 @@ body {
   }
 }
 
-// אנימציות
+// Animations
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -189,7 +189,7 @@ body {
 .slide-in {
   animation: slideIn 0.3s ease-out;
 }
-// עיצוב מיוחד ל-Comments Dialog
+// Special styling for Comments Dialog
 ::ng-deep {
   .comments-dialog {
     .mat-mdc-dialog-container {
@@ -207,7 +207,7 @@ body {
 
 
 
-// אפקט hover מגניב לכפתורים
+// Cool hover effect for buttons
 .mat-mdc-raised-button:not(:disabled) {
   position: relative;
   overflow: hidden;
@@ -231,19 +231,19 @@ body {
   }
 }
 
-// אנימציות לכרטיסים
+// Animations for cards
 .mat-mdc-card {
   &:hover {
     animation: pulse 2s infinite;
   }
 }
 
-// Loading spinner מעוצב
+// Styled loading spinner
 .mat-mdc-progress-spinner circle {
   stroke: url(#gradient) !important;
 }
 
-// ===== RTL (Right-to-Left) SUPPORT FOR HEBREW =====
+// ===== LTR (Left-to-Right) SUPPORT FOR ENGLISH =====
 // Logical properties for RTL/LTR agnostic styling
 
 @mixin rtl-margin($top: 0, $inline-end: 0, $bottom: 0, $inline-start: 0) {
@@ -260,10 +260,10 @@ body {
   padding-inline-start: $inline-start;
 }
 
-// RTL specific overrides
-html[dir="rtl"] {
-  direction: rtl;
-  text-align: right;
+// LTR specific overrides
+html[dir="ltr"] {
+  direction: ltr;
+  text-align: left;
 
   // Fix Material icons direction
   .mat-icon {
@@ -272,7 +272,7 @@ html[dir="rtl"] {
 
   // Fix Material form fields
   .mat-mdc-form-field {
-    text-align: right;
+    text-align: left;
 
     .mat-mdc-form-field-wrapper {
       padding-bottom: 1.25em;
@@ -281,8 +281,8 @@ html[dir="rtl"] {
 
   // Fix input elements
   input, textarea {
-    direction: rtl;
-    text-align: right;
+    direction: ltr;
+    text-align: left;
   }
 
   // Fix Material buttons
@@ -314,80 +314,80 @@ html[dir="rtl"] {
   // Fix dialogs
   .mat-mdc-dialog-container {
     .mat-mdc-dialog-title {
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
 
     .mat-mdc-dialog-content {
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
   }
 
   // Fix lists
   .mat-mdc-list {
     .mat-mdc-list-item {
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
 
       .mat-icon {
-        margin-inline-start: 16px;
-        margin-inline-end: 0;
+        margin-inline-start: 0;
+        margin-inline-end: 16px;
       }
     }
   }
 
   // Fix tables
   table {
-    direction: rtl;
-    text-align: right;
+    direction: ltr;
+    text-align: left;
 
     th, td {
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
   }
 
   // Fix floating action buttons
   .mat-mdc-fab {
-    margin-inline-start: auto;
-    margin-inline-end: 16px;
+    margin-inline-start: 16px;
+    margin-inline-end: auto;
   }
 
   // Fix flex layouts
   .flex-row-reverse {
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
 
   .flex-row {
     flex-direction: row;
 
     .item {
-      margin-inline-end: 0;
-      margin-inline-start: var(--spacing-md);
+      margin-inline-end: var(--spacing-md);
+      margin-inline-start: 0;
     }
   }
 
   // Fix Material menu
   .mat-mdc-menu-content {
-    direction: rtl;
+    direction: ltr;
 
     .mat-mdc-menu-item {
-      text-align: right;
-      direction: rtl;
+      text-align: left;
+      direction: ltr;
     }
   }
 
   // Fix Material tooltip
   .mat-tooltip {
-    direction: rtl;
-    text-align: right;
+    direction: ltr;
+    text-align: left;
   }
 
-  // Fix scrollbar position (stays on right even in RTL)
+  // Fix scrollbar position
   ::-webkit-scrollbar {
     position: absolute;
-    right: 0;
+    left: 0;
   }
 }
 

@@ -84,7 +84,7 @@
         background-color: rgba(244, 67, 54, 0.1);
       }
 
-      // אנימציה לכפתור תגובות
+      // Animation for comment button
       &:first-child:hover {
         background-color: rgba(102, 126, 234, 0.1);
       }
@@ -92,7 +92,7 @@
   }
 }
 
-// אנימציה כאשר הכרטיס נכנס
+// Animation when card enters
 @keyframes cardEnter {
   from {
     opacity: 0;

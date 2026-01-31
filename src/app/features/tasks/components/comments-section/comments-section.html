@@ -1,16 +1,16 @@
 <div class="comments-wrapper">
   <div class="comments-header">
     <mat-icon>forum</mat-icon>
-    <h3>תגובות</h3>
+    <h3>Comments</h3>
     <span class="badge">{{ comments().length }}</span>
   </div>
 
-  <!-- רשימת תגובות -->
+  <!-- Comments List -->
   <div class="comments-container">
     @if (loading()) {
       <div class="loading-state">
         <mat-icon>hourglass_empty</mat-icon>
-        <p>טוען תגובות...</p>
+        <p>Loading comments...</p>
       </div>
     } @else {
       @if (comments.length > 0) {
@@ -22,7 +22,7 @@
               </div>
               <div class="comment-body">
                 <div class="comment-meta">
-                  <span class="author-name">{{ comment.userName || 'משתמש אנונימי' }}</span>
+                  <span class="author-name">{{ comment.userName || 'Anonymous User' }}</span>
                   <span class="comment-time">{{ comment.createdAt | date: 'dd/MM/yy HH:mm' }}</span>
                 </div>
                 <div class="comment-text">
@@ -35,20 +35,20 @@
       } @else {
         <div class="empty-state">
           <mat-icon>chat_bubble_outline</mat-icon>
-          <p>אין תגובות עדיין</p>
-          <span>היה הראשון להגיב!</span>
+          <p>No comments yet</p>
+          <span>Be the first to comment!</span>
         </div>
       }
     }
   </div>
 
-  <!-- טופס הוספת תגובה -->
+  <!-- Add Comment Form -->
   <div class="comment-input-container">
     <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
       <div class="input-wrapper">
         <textarea 
           formControlName="content"
-          placeholder="כתוב תגובה..."
+          placeholder="Write a comment..."
           rows="1"
           (input)="autoResize($event)"
           class="comment-input"></textarea>
@@ -65,7 +65,7 @@
         </button>
       </div>
       @if (commentForm.controls.content.touched && commentForm.controls.content.hasError('required')) {
-        <div class="error-message">נא להזין תוכן לתגובה</div>
+        <div class="error-message">Please enter comment content</div>
       }
     </form>
   </div>

@@ -5,6 +5,8 @@ mat-toolbar {
   padding: 0 24px;
   height: 60px;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
   
   .logo {
     cursor: pointer;
@@ -15,6 +17,7 @@ mat-toolbar {
     align-items: center;
     gap: 8px;
     transition: opacity 0.2s;
+    order: 1;
     
     &:hover {
       opacity: 0.8;
@@ -39,8 +42,13 @@ mat-toolbar {
       color: var(--text-primary);
     }
     
+    &.nav-teams-btn {
+      margin-left: 0;
+      order: 2;
+    }
+    
     mat-icon {
-      margin-left: 6px;
+      margin-right: 6px;
       font-size: 20px;
       width: 20px;
       height: 20px;

@@ -1,35 +1,35 @@
 <div class="dialog-header">
-  <h2 mat-dialog-title>צור צוות חדש</h2>
+  <h2 mat-dialog-title>Create New Team</h2>
 </div>
 
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="teamForm" class="form-container">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>שם הצוות</mat-label>
-      <input matInput formControlName="name" placeholder="לדוגמה: צוות פיתוח">
+      <mat-label>Team Name</mat-label>
+      <input matInput formControlName="name" placeholder="e.g., Development Team">
       @if (teamForm.controls.name.hasError('required')) {
-        <mat-error>שם הצוות הוא שדה חובה</mat-error>
+        <mat-error>Team name is required</mat-error>
       }
       @if (teamForm.controls.name.hasError('minlength')) {
-        <mat-error>השם חייב להכיל לפחות 2 תווים</mat-error>
+        <mat-error>Name must be at least 2 characters</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>תיאור צוות</mat-label>
+      <mat-label>Team Description</mat-label>
       <textarea matInput formControlName="description" rows="4" 
-                placeholder="תאר את מטרת הצוות..."></textarea>
-      <mat-hint>תיאור כללי של מטרות הצוות</mat-hint>
+                placeholder="Describe the purpose of the team..."></textarea>
+      <mat-hint>General description of team goals</mat-hint>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="dialog-actions">
-  <button mat-button (click)="onCancel()" class="cancel-btn">ביטול</button>
+  <button mat-button (click)="onCancel()" class="cancel-btn">Cancel</button>
   <button mat-raised-button color="primary" 
           (click)="onSubmit()" 
           [disabled]="loading() || teamForm.invalid"
           class="create-btn">
-    {{ loading() ? 'יוצר...' : 'צור צוות' }}
+    {{ loading() ? 'Creating...' : 'Create Team' }}
   </button>
 </mat-dialog-actions>

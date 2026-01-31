@@ -52,15 +52,15 @@ export class TaskDialogComponent implements OnInit {
   });
 
   statusOptions = [
-    { value: 'todo', label: 'לביצוע' },
-    { value: 'in_progress', label: 'בביצוע' },
-    { value: 'done', label: 'הושלם' }
+    { value: 'todo', label: 'To Do' },
+    { value: 'in_progress', label: 'In Progress' },
+    { value: 'done', label: 'Completed' }
   ];
 
   priorityOptions = [
-    { value: 'low', label: 'נמוכה' },
-    { value: 'normal', label: 'רגילה' },
-    { value: 'high', label: 'גבוהה' }
+    { value: 'low', label: 'Low' },
+    { value: 'normal', label: 'Normal' },
+    { value: 'high', label: 'High' }
   ];
 
   ngOnInit(): void {
@@ -89,7 +89,7 @@ export class TaskDialogComponent implements OnInit {
           },
           error: () => {
             this.loading.set(false);
-            this.snackBar.open('שגיאה בעדכון המשימה', 'סגור', { duration: 3000 });
+            this.snackBar.open('Error updating task', 'Close', { duration: 3000 });
           }
         });
       } else {
@@ -104,7 +104,7 @@ export class TaskDialogComponent implements OnInit {
           },
           error: () => {
             this.loading.set(false);
-            this.snackBar.open('שגיאה ביצירת המשימה', 'סגור', { duration: 3000 });
+            this.snackBar.open('Error creating task', 'Close', { duration: 3000 });
           }
         });
       }

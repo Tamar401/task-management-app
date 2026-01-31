@@ -42,7 +42,7 @@ export class TeamsListComponent implements OnInit {
   loadTeams(): void {
     this.teamsService.loadTeams().subscribe({
       error: () => {
-        this.snackBar.open('שגיאה בטעינת הצוותים', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error loading teams', 'Close', { duration: 3000 });
       }
     });
   }
@@ -54,7 +54,7 @@ export class TeamsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.snackBar.open('הצוות נוצר בהצלחה!', 'סגור', { duration: 3000 });
+        this.snackBar.open('Team created successfully!', 'Close', { duration: 3000 });
       }
     });
   }

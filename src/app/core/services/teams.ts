@@ -93,7 +93,7 @@ export class TeamsService {
   addMember(teamId: number, userId: number): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/${teamId}/members`, { userId }).pipe(
       tap(() => {
-        // עדכן את מספר החברים בקלای נט
+        // Update member count in client
         this.teams.update(teams =>
           teams.map(team =>
             team.id === teamId

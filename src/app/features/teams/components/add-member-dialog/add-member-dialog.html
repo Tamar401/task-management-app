@@ -1,31 +1,31 @@
 <div class="dialog-header">
-  <h2 mat-dialog-title>הוסף חבר לצוות "{{ data.teamName }}"</h2>
+  <h2 mat-dialog-title>Add Member to Team "{{ data.teamName }}"</h2>
 </div>
 
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="memberForm" class="form-container">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>מזהה המשתמש</mat-label>
+      <mat-label>User ID</mat-label>
       <input 
         matInput 
         formControlName="userId" 
         type="number" 
-        placeholder="הזן את מזהה המשתמש של החבר"
+        placeholder="Enter the user ID of the member"
         class="input-field"
         autofocus
       />
       @if (memberForm.get('userId')?.hasError('required')) {
-        <mat-error>שדה זה חובה</mat-error>
+        <mat-error>This field is required</mat-error>
       }
       @if (memberForm.get('userId')?.hasError('min')) {
-        <mat-error>מזהה המשתמש חייב להיות חיובי</mat-error>
+        <mat-error>User ID must be positive</mat-error>
       }
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="dialog-actions">
-  <button mat-button (click)="cancel()" class="cancel-btn">ביטול</button>
+  <button mat-button (click)="cancel()" class="cancel-btn">Cancel</button>
   <button 
     mat-raised-button 
     color="primary" 
@@ -36,6 +36,6 @@
     @if (!submitting()) {
       <mat-icon>person_add</mat-icon>
     }
-    {{ submitting() ? 'הוספה בעיצומה...' : 'הוסף חבר' }}
+    {{ submitting() ? 'Adding...' : 'Add Member' }}
   </button>
 </mat-dialog-actions>

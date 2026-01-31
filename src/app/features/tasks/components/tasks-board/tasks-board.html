@@ -4,11 +4,11 @@
       <button mat-icon-button (click)="goBack()" aria-label="Go back">
         <mat-icon aria-hidden="true">arrow_forward</mat-icon>
       </button>
-      <h1>לוח משימות</h1>
+      <h1>Task Board</h1>
     </div>
     <button mat-raised-button color="primary" (click)="openTaskDialog()" aria-label="Add new task">
       <mat-icon aria-hidden="true">add</mat-icon>
-      הוסף משימה
+      Add Task
     </button>
   </div>
 
@@ -20,7 +20,7 @@
     <div class="board" role="region" aria-label="Task board with columns">
       <div class="column">
         <div class="column-header todo">
-          <h2>לביצוע</h2>
+          <h2>To Do</h2>
           <span class="count" aria-label="Number of to-do tasks">{{ todoTasks().length }}</span>
         </div>
         <div 
@@ -45,7 +45,7 @@
           @if (todoTasks().length === 0) {
             <div class="empty-column">
               <mat-icon>task_alt</mat-icon>
-              <p>אין משימות</p>
+              <p>No tasks</p>
             </div>
           }
         </div>
@@ -53,7 +53,7 @@
 
       <div class="column">
         <div class="column-header in-progress">
-          <h2>בביצוע</h2>
+          <h2>In Progress</h2>
           <span class="count" aria-label="Number of in-progress tasks">{{ inProgressTasks().length }}</span>
         </div>
         <div 
@@ -78,7 +78,7 @@
           @if (inProgressTasks().length === 0) {
             <div class="empty-column">
               <mat-icon aria-hidden="true">pending_actions</mat-icon>
-              <p>אין משימות</p>
+              <p>No tasks</p>
             </div>
           }
         </div>
@@ -86,7 +86,7 @@
 
       <div class="column">
         <div class="column-header done">
-          <h2>הושלם</h2>
+          <h2>Completed</h2>
           <span class="count" aria-label="Number of completed tasks">{{ doneTasks().length }}</span>
         </div>
         <div 
@@ -111,7 +111,7 @@
           @if (doneTasks().length === 0) {
             <div class="empty-column">
               <mat-icon aria-hidden="true">done_all</mat-icon>
-              <p>אין משימות</p>
+              <p>No tasks</p>
             </div>
           }
         </div>

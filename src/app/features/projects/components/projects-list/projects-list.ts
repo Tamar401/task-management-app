@@ -42,7 +42,7 @@ export class ProjectsListComponent implements OnInit {
 
   teamName = computed(() => {
     const firstProject = this.projects()[0];
-    return firstProject?.teamName || 'הצוות שלי';
+    return firstProject?.teamName || 'My Team';
   });
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class ProjectsListComponent implements OnInit {
   loadProjects(): void {
     this.projectsService.loadProjects().subscribe({
       error: () => {
-        this.snackBar.open('שגיאה בטעינת הפרויקטים', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error loading projects', 'Close', { duration: 3000 });
       }
     });
   }

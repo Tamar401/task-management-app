@@ -59,7 +59,7 @@ export class ProjectDialogComponent {
         },
         error: () => {
           this.loading.set(false);
-          this.snackBar.open('שגיאה ביצירת הפרויקט', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error creating project', 'Close', { duration: 3000 });
         }
       });
     }

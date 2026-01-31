@@ -28,8 +28,8 @@ export class CommentsSectionComponent implements OnInit {
 
   taskId = input.required<number>();
 
- comments = this.commentsService.comments; // ה-Signal שבו נמצאת רשימת התגובות
-loading = this.commentsService.loading;   // ה-Signal שמציין אם יש טעינה
+  comments = this.commentsService.comments;
+loading = this.commentsService.loading;
   submitting = signal(false);
 
   commentForm = this.fb.group({
@@ -43,7 +43,7 @@ loading = this.commentsService.loading;   // ה-Signal שמציין אם יש ט
   loadComments(): void {
     this.commentsService.loadComments(this.taskId()).subscribe({
       error: () => {
-        this.snackBar.open('שגיאה בטעינת התגובות', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error loading comments', 'Close', { duration: 3000 });
       }
     });
   }
@@ -61,12 +61,12 @@ loading = this.commentsService.loading;   // ה-Signal שמציין אם יש ט
         next: () => {
           this.commentForm.reset();
           this.submitting.set(false);
-          // רענון התגובות
+          // Refresh comments
           this.loadComments();
         },
         error: () => {
           this.submitting.set(false);
-          this.snackBar.open('שגיאה בהוספת התגובה', 'סגור', { duration: 3000 });
+          this.snackBar.open('Error adding comment', 'Close', { duration: 3000 });
         }
       });
     }

@@ -97,7 +97,7 @@ export class TasksBoardComponent implements OnInit {
   loadTasks(): void {
     this.tasksService.loadTasks(this.projectId).subscribe({
       error: () => {
-        this.snackBar.open('שגיאה בטעינת המשימות', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error loading tasks', 'Close', { duration: 3000 });
       }
     });
   }
@@ -117,10 +117,10 @@ export class TasksBoardComponent implements OnInit {
     
     this.tasksService.updateTask(task.id, { status: newStatus }).subscribe({
       next: () => {
-        this.snackBar.open('המשימה עודכנה בהצלחה!', 'סגור', { duration: 2000 });
+        this.snackBar.open('Task updated successfully!', 'Close', { duration: 2000 });
       },
       error: () => {
-        this.snackBar.open('שגיאה בעדכון המשימה', 'סגור', { duration: 3000 });
+        this.snackBar.open('Error updating task', 'Close', { duration: 3000 });
         this.loadTasks();
       }
     });
@@ -134,7 +134,7 @@ export class TasksBoardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.snackBar.open('המשימה נוצרה בהצלחה!', 'סגור', { duration: 3000 });
+        this.snackBar.open('Task created successfully!', 'Close', { duration: 3000 });
       }
     });
   }
@@ -142,7 +142,7 @@ export class TasksBoardComponent implements OnInit {
 
 
   onTaskDeleted(taskId: number): void {
-    this.snackBar.open('המשימה נמחקה בהצלחה!', 'סגור', { duration: 2000 });
+    this.snackBar.open('Task deleted successfully!', 'Close', { duration: 2000 });
   }
 
   goBack(): void {

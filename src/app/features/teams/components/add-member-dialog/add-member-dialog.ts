@@ -56,8 +56,8 @@ export class AddMemberDialogComponent {
         error: (error) => {
           console.error('Error adding member:', error);
           this.submitting.set(false);
-          const errorMsg = error?.error?.message || 'שגיאה בהוספת החבר לצוות';
-          this.snackBar.open(errorMsg, 'סגור', { duration: 3000 });
+          const errorMsg = error?.error?.message || 'Error adding member to team';
+          this.snackBar.open(errorMsg, 'Close', { duration: 3000 });
         }
       });
     }
